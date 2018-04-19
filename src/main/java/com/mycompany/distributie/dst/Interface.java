@@ -5,6 +5,7 @@
  */
 package com.mycompany.distributie.dst;
 
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,8 +22,11 @@ import org.jxmapviewer.viewer.TileFactoryInfo;
 import org.jxmapviewer.viewer.Waypoint;
 import org.jxmapviewer.viewer.WaypointPainter;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.event.MouseInputListener;
 
 import org.jxmapviewer.input.CenterMapListener;
@@ -39,16 +43,37 @@ public class Interface extends javax.swing.JFrame {
     ArrayList<Distribuitor> distribuitori = new ArrayList<>();
     ArrayList<Client> clienti = new ArrayList<>();
     ArrayList<Producator> producatori = new ArrayList<>();
-    
+
     public Interface() {
         initComponents();
         initInterface();
     }
-    
+
     void initInterface() {
         this.setLayout(null);
         this.setLocationRelativeTo(null);
-        this.setVisible(true);        
+        this.setVisible(true);
+        jComboBoxClienti.setModel(new DefaultComboBoxModel());
+        jComboBoxDistribuitori.setModel(new DefaultComboBoxModel());
+        jComboBoxProducatori.setModel(new DefaultComboBoxModel());
+        
+        Distribuitor d1 = new Distribuitor("Distribuitor 1", "Adresa Dist 1");
+        Distribuitor d2 = new Distribuitor("Distribuitor 2", "Adresa Dist 2");
+        
+        Client c1 = new Client("Client 1", "Adresa Client 1");
+        Client c2 = new Client("Client 2", "Adresa Client 2");
+        
+        Producator p1 = new Producator(1, "Producator 1", "Adresa Producator 1");
+        Producator p2 = new Producator(2, "Producator 2", "Adresa Producator 2");
+        
+        distribuitori.add(d1);
+        distribuitori.add(d2);
+        
+        clienti.add(c1);
+        clienti.add(c2);
+        
+        producatori.add(p1);
+        producatori.add(p2);
     }
 
     /**
@@ -85,6 +110,15 @@ public class Interface extends javax.swing.JFrame {
         jTextFieldAdaugaProducatorNume = new javax.swing.JTextField();
         jTextFieldAdaugaProducatorAdresa = new javax.swing.JTextField();
         jButtonAdaugaProducator = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jComboBoxDistribuitori = new javax.swing.JComboBox<>();
+        jComboBoxClienti = new javax.swing.JComboBox<>();
+        jComboBoxProducatori = new javax.swing.JComboBox<>();
+        jButtonAfiseazaAll = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -197,17 +231,18 @@ public class Interface extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldAdaugaClientNume, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextFieldAdaugaClientNume))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButtonAdaugaClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextFieldAdaugaClientAdresa, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonAdaugaClient, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldAdaugaClientAdresa, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(361, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -282,6 +317,70 @@ public class Interface extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Adauga Producator", jPanel3);
 
+        jLabel10.setText("Distribuitor");
+
+        jLabel11.setText("Client");
+
+        jLabel12.setText("Producator");
+
+        jComboBoxDistribuitori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jComboBoxClienti.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jComboBoxProducatori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jButtonAfiseazaAll.setText("Afiseaza");
+        jButtonAfiseazaAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAfiseazaAllActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBoxClienti, 0, 173, Short.MAX_VALUE)
+                            .addComponent(jComboBoxProducatori, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxDistribuitori, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jButtonAfiseazaAll))
+                .addContainerGap(348, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jComboBoxDistribuitori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(jComboBoxClienti, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jComboBoxProducatori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jButtonAfiseazaAll)
+                .addContainerGap(263, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Afisare", jPanel4);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -334,10 +433,10 @@ public class Interface extends javax.swing.JFrame {
         TileFactoryInfo info = new OSMTileFactoryInfo();
         DefaultTileFactory tileFactory = new DefaultTileFactory(info);
         mapViewer.setTileFactory(tileFactory);
-        
+
         Point from = new Point();
         Point to = new Point();
-        
+
         try {
             from.getCoordinates(jTextFieldFrom.getText());
             to.getCoordinates(jTextFieldTo.getText());
@@ -350,28 +449,28 @@ public class Interface extends javax.swing.JFrame {
         // Create a track from the geo-positions
         Route route = new Route(jTextFieldFrom.getText(), jTextFieldTo.getText());
         ArrayList<String> routePath = new ArrayList<>();
-        
+
         try {
             routePath = route.getEncodedPath();
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         List<LatLng> l = new ArrayList<>();
-        
+
         for (int i = 0; i < routePath.size(); i++) {
             Path d = new Path(routePath.get(i));
             for (int j = 0; j < d.decode().size(); j++) {
                 l.add(d.decode().get(j));
             }
         }
-        
+
         List<GeoPosition> track = new ArrayList<>();
         for (int i = 0; i < l.size(); i++) {
             GeoPosition g = new GeoPosition(l.get(i).lat, l.get(i).lng);
             track.add(g);
         }
-        
+
         RoutePainter routePainter = new RoutePainter(track);
 
         // Set the focus
@@ -395,11 +494,11 @@ public class Interface extends javax.swing.JFrame {
         List<Painter<JXMapViewer>> painters = new ArrayList<Painter<JXMapViewer>>();
         painters.add(routePainter);
         painters.add(waypointPainter);
-        
+
         CompoundPainter<JXMapViewer> painter = new CompoundPainter<JXMapViewer>(painters);
         mapViewer.setOverlayPainter(painter);
     }//GEN-LAST:event_jButtonTraseuActionPerformed
-    
+
     private void addMouseInteractions() {
         MouseInputListener mia = new PanMouseInputListener(mapViewer);
         mapViewer.addMouseListener(mia);
@@ -422,6 +521,20 @@ public class Interface extends javax.swing.JFrame {
         Producator producator = new Producator(1, jTextFieldAdaugaProducatorNume.getText(), jTextFieldAdaugaProducatorAdresa.getText());
         producatori.add(producator);
     }//GEN-LAST:event_jButtonAdaugaProducatorActionPerformed
+
+    private void jButtonAfiseazaAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAfiseazaAllActionPerformed
+        for (int i=0; i<clienti.size(); i++) {
+            jComboBoxClienti.addItem(clienti.get(i).nume);
+        }
+        
+        for (int i=0; i<producatori.size(); i++) {
+            jComboBoxProducatori.addItem(producatori.get(i).nume);
+        }
+        
+        for (int i=0; i<distribuitori.size(); i++) {
+            jComboBoxDistribuitori.addItem(distribuitori.get(i).nume);
+        }
+    }//GEN-LAST:event_jButtonAfiseazaAllActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -461,8 +574,15 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAdaugaClient;
     private javax.swing.JButton jButtonAdaugaDistribuitor;
     private javax.swing.JButton jButtonAdaugaProducator;
+    private javax.swing.JButton jButtonAfiseazaAll;
     private javax.swing.JButton jButtonTraseu;
+    private javax.swing.JComboBox<String> jComboBoxClienti;
+    private javax.swing.JComboBox<String> jComboBoxDistribuitori;
+    private javax.swing.JComboBox<String> jComboBoxProducatori;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -470,9 +590,11 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanelMap;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextFieldAdaugaClientAdresa;
