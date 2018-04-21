@@ -33,6 +33,7 @@ public class Route {
     String googleKey = "&key=AIzaSyAmFZVeNDgmAcVNFA1OHwhPBM4lKTHZsSc";
     String region = "&region=ro";
     String optimize = "&waypoints=optimize:true";
+    String distanta;
 
     public Route(String fromLocation, String toLocation) {
         this.fromLocation = fromLocation;
@@ -54,8 +55,12 @@ public class Route {
     public void setToLocation(String toLocation) {
         this.toLocation = toLocation;
     }
+
+    public String getDistanta() {
+        return distanta;
+    }    
     
-    public ArrayList<String> getEncodedPath() throws UnsupportedEncodingException{
+    public ArrayList<String> getRouteDetails() throws UnsupportedEncodingException{
         
         ArrayList<String> resultPath = new ArrayList<>();
         InputStream inputStream = null;
@@ -67,7 +72,7 @@ public class Route {
             HttpClient client = new DefaultHttpClient();
 
             HttpPost post = new HttpPost(basePath + "origin=" + fromLocation + "&destination="+ toLocation + region +  googleKey);
-
+            
             HttpResponse response = client.execute(post);
             HttpEntity entity = response.getEntity();
             inputStream = entity.getContent();
@@ -92,20 +97,20 @@ public class Route {
             //now read
             obj = parser.parse(json);
             JSONObject jb = (JSONObject) obj;
-            JSONArray jsonObject1 = (JSONArray) jb.get("routes");
-            JSONObject jsonObject2 = (JSONObject) jsonObject1.get(0);
-            JSONArray jsonObject3 = (JSONArray) jsonObject2.get("legs");
-            JSONObject jsonObject4 = (JSONObject) jsonObject3.get(0);
-            JSONArray jsonObject5 = (JSONArray) jsonObject4.get("steps");
-            
+            JSONArray routes = (JSONArray) jb.get("routes");
+            JSONObject jsonObject2 = (JSONObject) routes.get(0);
+            JSONArray legs = (JSONArray) jsonObject2.get("legs");
+            JSONObject jsonObject4 = (JSONObject) legs.get(0);
+            JSONObject distanta = (JSONObject) jsonObject4.get("distance");
+            JSONArray jsonObject5 = (JSONArray) jsonObject4.get("steps");            
+            this.distanta = (String) distanta.get("text");;
+                        
             for (int i = 0; i < jsonObject5.size(); i++) {
                 JSONObject jsonObject6 = (JSONObject) jsonObject5.get(i);
                 JSONObject jsonObject7 = (JSONObject) jsonObject6.get("polyline");
                 resultPath.add((String) jsonObject7.get("points"));
-            }
-            
+            }            
             return resultPath;
-
         } catch (ParseException ex) {
             System.out.println(ex);
         }

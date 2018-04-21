@@ -2,6 +2,7 @@
 package com.mycompany.distributie.dst;
 
 public class Distribuitor {
+    int id;
     String nume;
     String adresa;
 
@@ -24,5 +25,10 @@ public class Distribuitor {
 
     public void setAdresa(String adresa) {
         this.adresa = adresa;
+    }
+
+    @Override
+    public String toString() {
+        return nume;
     }
 }

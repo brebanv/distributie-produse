@@ -25,4 +25,11 @@ public class Client {
     public void setAdresa(String adresa) {
         this.adresa = adresa;
     }
+
+    @Override
+    public String toString() {
+        return nume;
+    }
+    
+    
 }
