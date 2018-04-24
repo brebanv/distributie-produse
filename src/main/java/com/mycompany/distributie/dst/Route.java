@@ -71,7 +71,7 @@ public class Route {
         try {
             HttpClient client = new DefaultHttpClient();
 
-            HttpPost post = new HttpPost(basePath + "origin=" + fromLocation + "&destination="+ toLocation + region +  googleKey);
+            HttpPost post = new HttpPost(basePath + "origin=" + fromLocation + "&destination="+ toLocation + region + "&waypoints=Strada+Castanilor,Maramures" +  googleKey);
             
             HttpResponse response = client.execute(post);
             HttpEntity entity = response.getEntity();
@@ -100,16 +100,26 @@ public class Route {
             JSONArray routes = (JSONArray) jb.get("routes");
             JSONObject jsonObject2 = (JSONObject) routes.get(0);
             JSONArray legs = (JSONArray) jsonObject2.get("legs");
+            
             JSONObject jsonObject4 = (JSONObject) legs.get(0);
+            JSONObject jsonObject10 = (JSONObject) legs.get(1);
+            
             JSONObject distanta = (JSONObject) jsonObject4.get("distance");
-            JSONArray jsonObject5 = (JSONArray) jsonObject4.get("steps");            
+            
+            JSONArray jsonObject5 = (JSONArray) jsonObject4.get("steps");  
+            JSONArray jsonObject11 = (JSONArray) jsonObject10.get("steps"); 
             this.distanta = (String) distanta.get("text");;
                         
             for (int i = 0; i < jsonObject5.size(); i++) {
                 JSONObject jsonObject6 = (JSONObject) jsonObject5.get(i);
                 JSONObject jsonObject7 = (JSONObject) jsonObject6.get("polyline");
                 resultPath.add((String) jsonObject7.get("points"));
-            }            
+            }
+            for (int i = 0; i < jsonObject11.size(); i++) {
+                JSONObject jsonObject6 = (JSONObject) jsonObject11.get(i);
+                JSONObject jsonObject7 = (JSONObject) jsonObject6.get("polyline");
+                resultPath.add((String) jsonObject7.get("points"));
+            }
             return resultPath;
         } catch (ParseException ex) {
             System.out.println(ex);

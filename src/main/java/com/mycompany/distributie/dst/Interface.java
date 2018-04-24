@@ -28,6 +28,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.event.MouseInputListener;
+import org.json.simple.parser.ParseException;
 
 import org.jxmapviewer.input.CenterMapListener;
 import org.jxmapviewer.input.PanKeyListener;
@@ -458,7 +459,7 @@ public class Interface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     void deseneazaRuta(String p1, String p2) {
         mapViewer = new JXMapViewer();
         mapViewer.setBounds(0, 0, 600, 600);
@@ -516,14 +517,28 @@ public class Interface extends javax.swing.JFrame {
 
         // Set the focus
         mapViewer.zoomToBestFit(new HashSet<>(track), 0.7);
-
+        
+        
+        Object distribuitor = jComboBoxDistribuitori.getSelectedItem();
+        try {
+            ((Distribuitor) distribuitor).setCoordinates();
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         // Create waypoints from the geo-positions
         Set<Waypoint> waypoints = new HashSet<>();
         GeoPosition g1 = new GeoPosition(from.getLatitude(), from.getLongitude());
         GeoPosition g2 = new GeoPosition(to.getLatitude(), to.getLongitude());
+        
+        GeoPosition g3 = new GeoPosition(((Distribuitor) distribuitor).latitude, ((Distribuitor) distribuitor).longitude); 
+        
         waypoints.add(new DefaultWaypoint(g1));
         waypoints.add(new DefaultWaypoint(g2));
-
+        waypoints.add(new DefaultWaypoint(g3));
+        
         // Create a waypoint painter that takes all the waypoints
         WaypointPainter<Waypoint> waypointPainter = new WaypointPainter<>();
         waypointPainter.setWaypoints(waypoints);
@@ -594,7 +609,8 @@ public class Interface extends javax.swing.JFrame {
 
         Object distribuitor = jComboBoxDistribuitori.getSelectedItem();
         String valDistribuitor = ((Distribuitor) distribuitor).getAdresa();
-
+        
+        
         deseneazaRuta(valProducator, valDistribuitor);
         
         jLabelDistantaProducatorDistribuitor.setText(distProdDist);
