@@ -33,6 +33,7 @@ public class Route {
     String googleKey = "&key=AIzaSyAmFZVeNDgmAcVNFA1OHwhPBM4lKTHZsSc";
     String region = "&region=ro";
     String optimize = "&waypoints=optimize:true";
+    String waypoint = "";
     String distanta;
 
     public Route(String fromLocation, String toLocation) {
@@ -59,7 +60,15 @@ public class Route {
     public String getDistanta() {
         return distanta;
     }    
-    
+
+    public void setWaypoint(String waypoint) throws UnsupportedEncodingException {
+        this.waypoint = "&waypoints=" + URLEncoder.encode(waypoint, "UTF-8");;
+    }
+
+    public String getWaypoint() {
+        return waypoint;
+    }
+
     public ArrayList<String> getRouteDetails() throws UnsupportedEncodingException{
         
         ArrayList<String> resultPath = new ArrayList<>();
@@ -71,8 +80,8 @@ public class Route {
         try {
             HttpClient client = new DefaultHttpClient();
 
-            HttpPost post = new HttpPost(basePath + "origin=" + fromLocation + "&destination="+ toLocation + region + "&waypoints=Strada+Castanilor,Maramures" +  googleKey);
-            
+            HttpPost post = new HttpPost(basePath + "origin=" + fromLocation + "&destination="+ toLocation + region + waypoint +  googleKey);
+            System.out.println(basePath + "origin=" + fromLocation + "&destination="+ toLocation + region + waypoint +  googleKey);
             HttpResponse response = client.execute(post);
             HttpEntity entity = response.getEntity();
             inputStream = entity.getContent();

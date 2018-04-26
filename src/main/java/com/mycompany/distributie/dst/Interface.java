@@ -132,6 +132,7 @@ public class Interface extends javax.swing.JFrame {
         jButtonProducatorDistribuitor = new javax.swing.JButton();
         jLabelDistantaProducatorDistribuitor = new javax.swing.JLabel();
         jLabeDistantalDistribuitorClient = new javax.swing.JLabel();
+        jButtonTraseuTotal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -402,6 +403,13 @@ public class Interface extends javax.swing.JFrame {
 
         jLabeDistantalDistribuitorClient.setText(" ");
 
+        jButtonTraseuTotal.setText("TraseuTotal");
+        jButtonTraseuTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTraseuTotalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -423,16 +431,18 @@ public class Interface extends javax.swing.JFrame {
                                     .addComponent(jTextFieldTo, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(56, 56, 56)
-                                        .addComponent(jButtonProducatorDistribuitor)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButtonDistribuitorClient))
-                                    .addGroup(layout.createSequentialGroup()
                                         .addGap(89, 89, 89)
                                         .addComponent(jLabelDistantaProducatorDistribuitor, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(85, 85, 85)
-                                        .addComponent(jLabeDistantalDistribuitorClient, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addComponent(jLabeDistantalDistribuitorClient, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(56, 56, 56)
+                                        .addComponent(jButtonProducatorDistribuitor)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jButtonDistribuitorClient)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButtonTraseuTotal)))))
+                        .addGap(0, 5, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -443,7 +453,8 @@ public class Interface extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jTextFieldFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonProducatorDistribuitor)
-                    .addComponent(jButtonDistribuitorClient))
+                    .addComponent(jButtonDistribuitorClient)
+                    .addComponent(jButtonTraseuTotal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -480,11 +491,29 @@ public class Interface extends javax.swing.JFrame {
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
+        
+        
 //      GeoPosition firstLocation = new GeoPosition(from.getLatitude(), from.getLongitude());
 //      GeoPosition secondLocation = new GeoPosition(to.getLatitude(), to.getLongitude());
         // Create a track from the geo-positions
         Route route = new Route(p1, p2);
+        
+        Object distribuitor = jComboBoxDistribuitori.getSelectedItem();
+        String wayPoint = "";
+        try {
+            ((Distribuitor) distribuitor).setCoordinates();
+            System.out.println(((Distribuitor) distribuitor).getAdresa());
+            wayPoint = ((Distribuitor) distribuitor).getAdresa();
+            route.setWaypoint(((Distribuitor) distribuitor).getAdresa());
+            wayPoint = route.getWaypoint();
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
         ArrayList<String> routePath = new ArrayList<>();
         try {
             routePath = route.getRouteDetails();
@@ -519,20 +548,12 @@ public class Interface extends javax.swing.JFrame {
         mapViewer.zoomToBestFit(new HashSet<>(track), 0.7);
         
         
-        Object distribuitor = jComboBoxDistribuitori.getSelectedItem();
-        try {
-            ((Distribuitor) distribuitor).setCoordinates();
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
         
         // Create waypoints from the geo-positions
         Set<Waypoint> waypoints = new HashSet<>();
         GeoPosition g1 = new GeoPosition(from.getLatitude(), from.getLongitude());
         GeoPosition g2 = new GeoPosition(to.getLatitude(), to.getLongitude());
-        
         GeoPosition g3 = new GeoPosition(((Distribuitor) distribuitor).latitude, ((Distribuitor) distribuitor).longitude); 
         
         waypoints.add(new DefaultWaypoint(g1));
@@ -606,15 +627,32 @@ public class Interface extends javax.swing.JFrame {
         
         Object producator = jComboBoxProducatori.getSelectedItem();
         String valProducator = ((Producator) producator).getAdresa();
-
+        
         Object distribuitor = jComboBoxDistribuitori.getSelectedItem();
         String valDistribuitor = ((Distribuitor) distribuitor).getAdresa();
         
-        
-        deseneazaRuta(valProducator, valDistribuitor);
+        deseneazaRuta(valProducator,valDistribuitor);
         
         jLabelDistantaProducatorDistribuitor.setText(distProdDist);
     }//GEN-LAST:event_jButtonProducatorDistribuitorActionPerformed
+
+    private void jButtonTraseuTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTraseuTotalActionPerformed
+        prodDist = true;
+        
+        Object producator = jComboBoxProducatori.getSelectedItem();
+        String valProducator = ((Producator) producator).getAdresa();
+        
+        Object distribuitor = jComboBoxDistribuitori.getSelectedItem();
+        String valDistribuitor = ((Distribuitor) distribuitor).getAdresa();
+        
+        Object client = jComboBoxClienti.getSelectedItem();
+        String valClient = ((Client) client).getAdresa();
+        
+        deseneazaRuta(valProducator,valDistribuitor);
+        deseneazaRuta(valDistribuitor,valClient);
+        
+        jLabelDistantaProducatorDistribuitor.setText(distProdDist);
+    }//GEN-LAST:event_jButtonTraseuTotalActionPerformed
 
     void refreshComboBox() {
         jComboBoxClienti.removeAllItems();
@@ -673,6 +711,7 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JButton jButtonDistribuitorClient;
     private javax.swing.JButton jButtonProducatorDistribuitor;
     private javax.swing.JButton jButtonTraseu;
+    private javax.swing.JButton jButtonTraseuTotal;
     private javax.swing.JComboBox<Client> jComboBoxClienti;
     private javax.swing.JComboBox<Distribuitor> jComboBoxDistribuitori;
     private javax.swing.JComboBox<Producator> jComboBoxProducatori;

@@ -60,8 +60,8 @@ public class Distribuitor {
         try {
             HttpClient client = new DefaultHttpClient();
 
-            HttpPost post = new HttpPost(basePath + "address=" + adresa + region + "&waypoints=Strada+Castanilor,Maramures" + googleKey);
-
+            HttpPost post = new HttpPost(basePath + "address=" + adresa + region + googleKey);
+            System.out.println(basePath + "address=" + adresa + region + googleKey);
             HttpResponse response = client.execute(post);
             HttpEntity entity = response.getEntity();
             inputStream = entity.getContent();
