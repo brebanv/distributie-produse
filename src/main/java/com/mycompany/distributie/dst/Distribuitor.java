@@ -59,9 +59,9 @@ public class Distribuitor {
 
         try {
             HttpClient client = new DefaultHttpClient();
-
-            HttpPost post = new HttpPost(basePath + "address=" + adresa + region + googleKey);
-            System.out.println(basePath + "address=" + adresa + region + googleKey);
+            String adresaURL = URLEncoder.encode(adresa, "UTF-8");
+            HttpPost post = new HttpPost(basePath + "address=" + adresaURL + region + googleKey);
+            System.out.println("Get Coordinates Waypoint: "+basePath + "address=" + adresaURL + region + googleKey);
             HttpResponse response = client.execute(post);
             HttpEntity entity = response.getEntity();
             inputStream = entity.getContent();
@@ -84,11 +84,10 @@ public class Distribuitor {
         JSONArray routes = (JSONArray) jb.get("results");
         JSONObject jsonObject2 = (JSONObject) routes.get(0);
         JSONObject legs = (JSONObject) jsonObject2.get("geometry");
-        JSONObject coordinate = (JSONObject) legs.get("viewport");
-        JSONObject jsonObject5 = (JSONObject) coordinate.get("northeast");
+        JSONObject coordinate = (JSONObject) legs.get("location");
 
-        this.latitude = (Double) jsonObject5.get("lat");
-        this.longitude = (Double) jsonObject5.get("lng");
+        this.latitude = (Double) coordinate.get("lat");
+        this.longitude = (Double) coordinate.get("lng");
     }
 
 }

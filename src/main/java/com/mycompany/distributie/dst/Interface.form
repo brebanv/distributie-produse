@@ -40,25 +40,17 @@
                                   <Component id="jTextFieldFrom" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jTextFieldTo" alignment="0" pref="126" max="32767" attributes="0"/>
                               </Group>
+                              <EmptySpace min="-2" pref="142" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
-                                      <Component id="jLabelDistantaProducatorDistribuitor" min="-2" pref="67" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
-                                      <Component id="jLabeDistantalDistribuitorClient" min="-2" pref="65" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                      <Component id="jLabelDistanta" min="-2" pref="67" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                                      <Component id="jButtonProducatorDistribuitor" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jButtonDistribuitorClient" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jButtonTraseuTotal" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="jButtonTraseuTotal" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="5" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="199" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -72,16 +64,13 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldFrom" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButtonProducatorDistribuitor" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButtonDistribuitorClient" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonTraseuTotal" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldTo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelDistantaProducatorDistribuitor" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabeDistantalDistribuitorClient" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelDistanta" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButtonTraseu" min="-2" max="-2" attributes="0"/>
@@ -538,35 +527,14 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButtonDistribuitorClient">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Distribuitor Client"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonDistribuitorClientActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButtonProducatorDistribuitor">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Producator Distribuitor"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonProducatorDistribuitorActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabelDistantaProducatorDistribuitor">
+    <Component class="javax.swing.JLabel" name="jLabelDistanta">
       <Properties>
         <Property name="text" type="java.lang.String" value="  "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabeDistantalDistribuitorClient">
-      <Properties>
-        <Property name="text" type="java.lang.String" value=" "/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JButton" name="jButtonTraseuTotal">
       <Properties>
-        <Property name="text" type="java.lang.String" value="TraseuTotal"/>
+        <Property name="text" type="java.lang.String" value="Traseu Total"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonTraseuTotalActionPerformed"/>

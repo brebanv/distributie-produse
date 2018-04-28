@@ -34,7 +34,9 @@ public class Route {
     String region = "&region=ro";
     String optimize = "&waypoints=optimize:true";
     String waypoint = "";
-    String distanta;
+    Long distanta;
+    double latWaypoint;
+    double lngWaypoint;
 
     public Route(String fromLocation, String toLocation) {
         this.fromLocation = fromLocation;
@@ -57,7 +59,7 @@ public class Route {
         this.toLocation = toLocation;
     }
 
-    public String getDistanta() {
+    public Long getDistanta() {
         return distanta;
     }    
 
@@ -69,7 +71,8 @@ public class Route {
         return waypoint;
     }
 
-    public ArrayList<String> getRouteDetails() throws UnsupportedEncodingException{
+    
+    public ArrayList<String> getRouteDetailsWithWayPoints() throws UnsupportedEncodingException{
         
         ArrayList<String> resultPath = new ArrayList<>();
         InputStream inputStream = null;
@@ -113,11 +116,18 @@ public class Route {
             JSONObject jsonObject4 = (JSONObject) legs.get(0);
             JSONObject jsonObject10 = (JSONObject) legs.get(1);
             
-            JSONObject distanta = (JSONObject) jsonObject4.get("distance");
+            JSONObject distanta1 = (JSONObject) jsonObject4.get("distance");
+            JSONObject distanta2 = (JSONObject) jsonObject10.get("distance");
             
             JSONArray jsonObject5 = (JSONArray) jsonObject4.get("steps");  
             JSONArray jsonObject11 = (JSONArray) jsonObject10.get("steps"); 
-            this.distanta = (String) distanta.get("text");;
+            
+            System.out.println((Long) distanta1.get("value"));
+            System.out.println((Long) distanta2.get("value"));
+            
+            Long distantaTotala = ((Long) distanta1.get("value") + (Long) distanta2.get("value"));
+            
+            this.distanta = distantaTotala;
                         
             for (int i = 0; i < jsonObject5.size(); i++) {
                 JSONObject jsonObject6 = (JSONObject) jsonObject5.get(i);
