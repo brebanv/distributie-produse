@@ -599,8 +599,13 @@ public class Interface extends javax.swing.JFrame {
 
         Object client = jComboBoxClienti.getSelectedItem();
         String valClient = ((Client) client).getAdresa();
-
-        deseneazaRuta(valProducator, valClient);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                deseneazaRuta(valProducator, valClient);
+            }
+        }).start();
+        
     }//GEN-LAST:event_jButtonTraseuTotalActionPerformed
 
     private void jButtonTraseuOptimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTraseuOptimActionPerformed
