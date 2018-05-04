@@ -77,6 +77,9 @@ public class Interface extends javax.swing.JFrame {
         }
         Image dimg = img.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(dimg);
+        TileFactoryInfo info = new OSMTileFactoryInfo();
+        DefaultTileFactory tileFactory = new DefaultTileFactory(info);
+        mapViewer.setTileFactory(tileFactory);
     }
 
     void initComboBox() {
@@ -154,7 +157,6 @@ public class Interface extends javax.swing.JFrame {
         jComboBoxDistribuitori = new javax.swing.JComboBox<>();
         jComboBoxClienti = new javax.swing.JComboBox<>();
         jComboBoxProducatori = new javax.swing.JComboBox<>();
-        jPanel5 = new javax.swing.JPanel();
         jLabelDistanta = new javax.swing.JLabel();
         jButtonTraseuTotal = new javax.swing.JButton();
         jButtonTraseuOptim = new javax.swing.JButton();
@@ -419,19 +421,6 @@ public class Interface extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Afisare", jPanel4);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 781, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 573, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Spinner", jPanel5);
-
         jLabelDistanta.setText("  ");
 
         jButtonTraseuTotal.setText("Traseu Total");
@@ -457,35 +446,33 @@ public class Interface extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
+                            .addComponent(jButtonTraseu)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButtonTraseu)
-                                .addGap(0, 725, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldFrom)
-                            .addComponent(jTextFieldTo, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
-                        .addGap(142, 142, 142)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonTraseuTotal)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabelDistanta, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(66, 66, 66)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabelTraseuOptim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(14, 14, 14))
-                            .addComponent(jButtonTraseuOptim))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextFieldFrom)
+                                    .addComponent(jTextFieldTo, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
+                                .addGap(142, 142, 142)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButtonTraseuTotal)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jLabelDistanta, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(66, 66, 66)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jLabelTraseuOptim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(14, 14, 14))
+                                    .addComponent(jButtonTraseuOptim))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -517,14 +504,15 @@ public class Interface extends javax.swing.JFrame {
         mapViewer.setBounds(0, 0, 800, 600);
         jPanelMap.add(mapViewer);
         jPanelMap.setSize(600, 800);
+        // Create a TileFactoryInfo for OpenStreetMap
+        
     }
 
     void deseneazaRuta(String p1, String p2) throws MalformedURLException {
-        prepareMap();
-        // Create a TileFactoryInfo for OpenStreetMap
-        TileFactoryInfo info = new OSMTileFactoryInfo();
-        DefaultTileFactory tileFactory = new DefaultTileFactory(info);
-        mapViewer.setTileFactory(tileFactory);
+        
+        addLoading();
+        
+        
 
         Point from = new Point();
         Point to = new Point();
@@ -535,7 +523,6 @@ public class Interface extends javax.swing.JFrame {
             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
         }
         //Create a track from the geo-positions
-
         Route route = new Route(p1, p2);
 
         Object distribuitor = jComboBoxDistribuitori.getSelectedItem();
@@ -577,9 +564,10 @@ public class Interface extends javax.swing.JFrame {
         }
 
         RoutePainter routePainter = new RoutePainter(track);
+        prepareMap();
         mapViewer.zoomToBestFit(new HashSet<>(track), 0.7);
         deseneazaWayponts(from, to, (Distribuitor) distribuitor, routePainter);
-
+        removeLoading();
     }
 
     private void deseneazaPeste(String p1, String p2) {
@@ -685,43 +673,24 @@ public class Interface extends javax.swing.JFrame {
         mapViewer.addKeyListener(new PanKeyListener(mapViewer));
     }
 
-    private void jButtonAdaugaDistribuitorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdaugaDistribuitorActionPerformed
-        Distribuitor distribuitor = new Distribuitor(jTextFieldAdaugaDistNume.getText(), jTextFieldAdaugaDistAdresa.getText());
-        distribuitori.add(distribuitor);
-        refreshComboBox();
-    }//GEN-LAST:event_jButtonAdaugaDistribuitorActionPerformed
-
-    private void jButtonAdaugaClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdaugaClientActionPerformed
-        Client client = new Client(jTextFieldAdaugaClientNume.getText(), jTextFieldAdaugaClientAdresa.getText());
-        clienti.add(client);
-        refreshComboBox();
-    }//GEN-LAST:event_jButtonAdaugaClientActionPerformed
-
-    private void jButtonAdaugaProducatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdaugaProducatorActionPerformed
-        Producator producator = new Producator(1, jTextFieldAdaugaProducatorNume.getText(), jTextFieldAdaugaProducatorAdresa.getText());
-        producatori.add(producator);
-        refreshComboBox();
-    }//GEN-LAST:event_jButtonAdaugaProducatorActionPerformed
-
     private void jButtonTraseuTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTraseuTotalActionPerformed
         Object producator = jComboBoxProducatori.getSelectedItem();
         String valProducator = ((Producator) producator).getAdresa();
 
         Object client = jComboBoxClienti.getSelectedItem();
         String valClient = ((Client) client).getAdresa();
-        new Thread(new Runnable() {
+       
+        Thread drawRoute = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    addLoading();
                     deseneazaRuta(valProducator, valClient);
-                    removeLoading();
                 } catch (MalformedURLException ex) {
                     Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        }).start();
-
+        });
+        drawRoute.start();
     }//GEN-LAST:event_jButtonTraseuTotalActionPerformed
 
     private void jButtonTraseuOptimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTraseuOptimActionPerformed
@@ -735,14 +704,33 @@ public class Interface extends javax.swing.JFrame {
             public void run() {
                 addLoading();
                 deseneazaPeste(valProducator, valClient);
-                removeLoading();
+                
             }
         }).start();
     }//GEN-LAST:event_jButtonTraseuOptimActionPerformed
+
+    
+    private void jButtonAdaugaClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdaugaClientActionPerformed
+        Client client = new Client(jTextFieldAdaugaClientNume.getText(), jTextFieldAdaugaClientAdresa.getText());
+        clienti.add(client);
+        refreshComboBox();
+    }//GEN-LAST:event_jButtonAdaugaClientActionPerformed
+
+    private void jButtonAdaugaDistribuitorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdaugaDistribuitorActionPerformed
+        Distribuitor distribuitor = new Distribuitor(jTextFieldAdaugaDistNume.getText(), jTextFieldAdaugaDistAdresa.getText());
+        distribuitori.add(distribuitor);
+        refreshComboBox();
+    }//GEN-LAST:event_jButtonAdaugaDistribuitorActionPerformed
+
+    private void jButtonAdaugaProducatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdaugaProducatorActionPerformed
+        Producator producator = new Producator(1, jTextFieldAdaugaProducatorNume.getText(), jTextFieldAdaugaProducatorAdresa.getText());
+        producatori.add(producator);
+        refreshComboBox();
+    }//GEN-LAST:event_jButtonAdaugaProducatorActionPerformed
     private void removeLoading() {
         jLabelLoading.setVisible(false);
-        jPanelMap.setVisible(true);
-        mapViewer.setVisible(true);
+        //jPanelMap.setVisible(true);
+        //mapViewer.setVisible(true);
         
     }
 
@@ -750,8 +738,6 @@ public class Interface extends javax.swing.JFrame {
         //mapViewer.setVisible(false);
         jLabelLoading.setVisible(true);
         jLabelLoading.setIcon(imageIcon);
-        //jPanelMap.setBackground(Color.YELLOW);
-        
     }
     void refreshComboBox() {
         jComboBoxClienti.removeAllItems();
@@ -832,7 +818,6 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelMap;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextFieldAdaugaClientAdresa;
