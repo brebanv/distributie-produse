@@ -5,9 +5,7 @@
  */
 package com.mycompany.distributie.dst;
 
-import java.awt.Color;
 import java.awt.Image;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -28,16 +26,11 @@ import org.jxmapviewer.viewer.Waypoint;
 import org.jxmapviewer.viewer.WaypointPainter;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Arrays;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.event.MouseInputListener;
 import org.json.simple.parser.ParseException;
 
@@ -73,13 +66,18 @@ public class Interface extends javax.swing.JFrame {
         try {
             img = ImageIO.read(new File("loading.png"));
         } catch (IOException e) {
-            e.printStackTrace();
         }
+
         Image dimg = img.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(dimg);
+
+        // Create a TileFactoryInfo for OpenStreetMap
         TileFactoryInfo info = new OSMTileFactoryInfo();
         DefaultTileFactory tileFactory = new DefaultTileFactory(info);
         mapViewer.setTileFactory(tileFactory);
+
+        // Add interactions
+        addMouseInteractions();
     }
 
     void initComboBox() {
@@ -92,10 +90,10 @@ public class Interface extends javax.swing.JFrame {
         Client c2 = new Client("Client 2", "Adresa Client 2");
         Client c3 = new Client("Max", "Strada Turbinei 39, Baia Mare");
 
-        Producator p1 = new Producator(1, "Producator 1", "Adresa Producator 1");
-        Producator p2 = new Producator(2, "Producator 2", "Adresa Producator 2");
-        Producator p3 = new Producator(3, "Producator Local", "Chiuzbaia Nr 244 Maramures");
-        Producator p4 = new Producator(4, "Producator Local Constanta", "Constanta");
+        Producator p1 = new Producator(1, "Producator 1", "Adresa Producator 1", 1, 1);
+        Producator p2 = new Producator(2, "Producator 2", "Adresa Producator 2", 1, 1);
+        Producator p3 = new Producator(3, "Producator Local", "Chiuzbaia Nr 244 Maramures", 1, 1);
+        Producator p4 = new Producator(4, "Producator Local Constanta", "Constanta", 1, 1);
 
         distribuitori.add(d1);
         distribuitori.add(d2);
@@ -159,7 +157,6 @@ public class Interface extends javax.swing.JFrame {
         jComboBoxProducatori = new javax.swing.JComboBox<>();
         jLabelDistanta = new javax.swing.JLabel();
         jButtonTraseuTotal = new javax.swing.JButton();
-        jButtonTraseuOptim = new javax.swing.JButton();
         jLabelTraseuOptim = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -192,7 +189,7 @@ public class Interface extends javax.swing.JFrame {
             .addGroup(jPanelMapLayout.createSequentialGroup()
                 .addGap(231, 231, 231)
                 .addComponent(jLabelLoading, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(250, Short.MAX_VALUE))
+                .addContainerGap(260, Short.MAX_VALUE))
         );
         jPanelMapLayout.setVerticalGroup(
             jPanelMapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,7 +236,7 @@ public class Interface extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(78, 78, 78)
                         .addComponent(jButtonAdaugaProducator)))
-                .addContainerGap(552, Short.MAX_VALUE))
+                .addContainerGap(562, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,7 +289,7 @@ public class Interface extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButtonAdaugaDistribuitor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap(623, Short.MAX_VALUE))
+                                .addContainerGap(656, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jTextFieldAdaugaDistAdresa, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
@@ -347,7 +344,7 @@ public class Interface extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonAdaugaClient, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldAdaugaClientAdresa, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(548, Short.MAX_VALUE))
+                .addContainerGap(558, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,7 +394,7 @@ public class Interface extends javax.swing.JFrame {
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBoxProducatori, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(539, Short.MAX_VALUE))
+                .addContainerGap(549, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -423,17 +420,10 @@ public class Interface extends javax.swing.JFrame {
 
         jLabelDistanta.setText("  ");
 
-        jButtonTraseuTotal.setText("Traseu Total");
+        jButtonTraseuTotal.setText("Traseu ComboBox");
         jButtonTraseuTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonTraseuTotalActionPerformed(evt);
-            }
-        });
-
-        jButtonTraseuOptim.setText("Traseu Optim");
-        jButtonTraseuOptim.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTraseuOptimActionPerformed(evt);
             }
         });
 
@@ -446,32 +436,28 @@ public class Interface extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextFieldFrom)
+                                .addComponent(jTextFieldTo, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
+                            .addGap(142, 142, 142)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jButtonTraseuTotal)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(10, 10, 10)
+                                    .addComponent(jLabelDistanta, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(76, 76, 76)
+                            .addComponent(jLabelTraseuOptim, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
                             .addComponent(jButtonTraseu)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextFieldFrom)
-                                    .addComponent(jTextFieldTo, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
-                                .addGap(142, 142, 142)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButtonTraseuTotal)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jLabelDistanta, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(66, 66, 66)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jLabelTraseuOptim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(14, 14, 14))
-                                    .addComponent(jButtonTraseuOptim))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addGap(0, 0, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -481,8 +467,7 @@ public class Interface extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextFieldFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonTraseuTotal)
-                    .addComponent(jButtonTraseuOptim))
+                    .addComponent(jButtonTraseuTotal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -504,15 +489,11 @@ public class Interface extends javax.swing.JFrame {
         mapViewer.setBounds(0, 0, 800, 600);
         jPanelMap.add(mapViewer);
         jPanelMap.setSize(600, 800);
-        // Create a TileFactoryInfo for OpenStreetMap
-        
     }
 
     void deseneazaRuta(String p1, String p2) throws MalformedURLException {
-        
+
         addLoading();
-        
-        
 
         Point from = new Point();
         Point to = new Point();
@@ -529,14 +510,10 @@ public class Interface extends javax.swing.JFrame {
         String wayPoint = "";
         try {
             ((Distribuitor) distribuitor).setCoordinates();
-
-            System.out.println(((Distribuitor) distribuitor).getAdresa());
             wayPoint = ((Distribuitor) distribuitor).getAdresa();
             route.setWaypoint(((Distribuitor) distribuitor).getAdresa());
             wayPoint = route.getWaypoint();
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
+        } catch (UnsupportedEncodingException | ParseException ex) {
             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -570,69 +547,10 @@ public class Interface extends javax.swing.JFrame {
         removeLoading();
     }
 
-    private void deseneazaPeste(String p1, String p2) {
-        // Create a TileFactoryInfo for OpenStreetMap
-        TileFactoryInfo info = new OSMTileFactoryInfo();
-        DefaultTileFactory tileFactory = new DefaultTileFactory(info);
-        mapViewer.setTileFactory(tileFactory);
-
-        Point from = new Point();
-        Point to = new Point();
-        try {
-            from.getCoordinates(p1);
-            to.getCoordinates(p2);
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //Create a track from the geo-positions
-        Route route = new Route(p1, p2);
-
-        Object distribuitor = jComboBoxDistribuitori.getSelectedItem();
-        String wayPoint = "";
-        try {
-            ((Distribuitor) distribuitor).setCoordinates();
-
-            System.out.println(((Distribuitor) distribuitor).getAdresa());
-            wayPoint = ((Distribuitor) distribuitor).getAdresa();
-            route.setWaypoint(((Distribuitor) distribuitor).getAdresa());
-            wayPoint = route.getWaypoint();
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        ArrayList<String> routePath = new ArrayList<>();
-        try {
-            routePath = route.getRouteDetailsWithWayPoints();
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        jLabelDistanta.setText(Long.toString((long) (route.getDistanta() * 0.001)) + " km");
-
-        List<LatLng> l = new ArrayList<>();
-        for (int i = 0; i < routePath.size(); i++) {
-            Path d = new Path(routePath.get(i));
-            for (int j = 0; j < d.decode().size(); j++) {
-                l.add(d.decode().get(j));
-            }
-        }
-
-        List<GeoPosition> track = new ArrayList<>();
-        for (int i = 0; i < l.size(); i++) {
-            GeoPosition g = new GeoPosition(l.get(i).lat, l.get(i).lng);
-            track.add(g);
-        }
-
-        RoutePainter routePainter = new RoutePainter(track);
-        mapViewer.zoomToBestFit(new HashSet<>(track), 0.7);
-        deseneazaWayponts(from, to, (Distribuitor) distribuitor, routePainter);
-    }
-
     private void deseneazaWayponts(Point from, Point to, Distribuitor distribuitor, RoutePainter routePainter) {
         // Create waypoints from the geo-positions
         Set<Waypoint> waypoints = new HashSet<>();
+
         GeoPosition g1 = new GeoPosition(from.getLatitude(), from.getLongitude());
         GeoPosition g2 = new GeoPosition(to.getLatitude(), to.getLongitude());
         GeoPosition g3 = new GeoPosition(((Distribuitor) distribuitor).latitude, ((Distribuitor) distribuitor).longitude);
@@ -645,17 +563,15 @@ public class Interface extends javax.swing.JFrame {
         WaypointPainter<Waypoint> waypointPainter = new WaypointPainter<>();
         waypointPainter.setWaypoints(waypoints);
 
-        // Add interactions
-        addMouseInteractions();
-
         // Create a compound painter that uses both the route-painter and the waypoint-painter
-        List<Painter<JXMapViewer>> painters = new ArrayList<Painter<JXMapViewer>>();
+        List<Painter<JXMapViewer>> painters = new ArrayList<>();
         painters.add(routePainter);
         painters.add(waypointPainter);
 
-        CompoundPainter<JXMapViewer> painter = new CompoundPainter<JXMapViewer>(painters);
+        CompoundPainter<JXMapViewer> painter = new CompoundPainter<>(painters);
         mapViewer.setOverlayPainter(painter);
     }
+
     private void jButtonTraseuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTraseuActionPerformed
         try {
             deseneazaRuta(jTextFieldTo.getText(), jTextFieldFrom.getText());
@@ -679,37 +595,18 @@ public class Interface extends javax.swing.JFrame {
 
         Object client = jComboBoxClienti.getSelectedItem();
         String valClient = ((Client) client).getAdresa();
-       
-        Thread drawRoute = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    deseneazaRuta(valProducator, valClient);
-                } catch (MalformedURLException ex) {
-                    Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-                }
+
+        Thread drawRoute = new Thread(() -> {
+            try {
+                deseneazaRuta(valProducator, valClient);
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
         drawRoute.start();
     }//GEN-LAST:event_jButtonTraseuTotalActionPerformed
 
-    private void jButtonTraseuOptimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTraseuOptimActionPerformed
-        Object producator = jComboBoxProducatori.getSelectedItem();
-        String valProducator = ((Producator) producator).getAdresa();
 
-        Object client = jComboBoxClienti.getSelectedItem();
-        String valClient = ((Client) client).getAdresa();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                addLoading();
-                deseneazaPeste(valProducator, valClient);
-                
-            }
-        }).start();
-    }//GEN-LAST:event_jButtonTraseuOptimActionPerformed
-
-    
     private void jButtonAdaugaClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdaugaClientActionPerformed
         Client client = new Client(jTextFieldAdaugaClientNume.getText(), jTextFieldAdaugaClientAdresa.getText());
         clienti.add(client);
@@ -723,7 +620,15 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAdaugaDistribuitorActionPerformed
 
     private void jButtonAdaugaProducatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdaugaProducatorActionPerformed
-        Producator producator = new Producator(1, jTextFieldAdaugaProducatorNume.getText(), jTextFieldAdaugaProducatorAdresa.getText());
+        Producator producator = new Producator(1, jTextFieldAdaugaProducatorNume.getText(), jTextFieldAdaugaProducatorAdresa.getText(), 1, 1);
+        Producatori listaProducatori = new Producatori();
+        
+        try {
+            listaProducatori.adauga(producator);
+        } catch (SQLException ex) {
+            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
         producatori.add(producator);
         refreshComboBox();
     }//GEN-LAST:event_jButtonAdaugaProducatorActionPerformed
@@ -731,7 +636,7 @@ public class Interface extends javax.swing.JFrame {
         jLabelLoading.setVisible(false);
         //jPanelMap.setVisible(true);
         //mapViewer.setVisible(true);
-        
+
     }
 
     private void addLoading() {
@@ -739,6 +644,7 @@ public class Interface extends javax.swing.JFrame {
         jLabelLoading.setVisible(true);
         jLabelLoading.setIcon(imageIcon);
     }
+
     void refreshComboBox() {
         jComboBoxClienti.removeAllItems();
         for (int i = clienti.size() - 1; i >= 0; i--) {
@@ -782,10 +688,8 @@ public class Interface extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Interface().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Interface().setVisible(true);
         });
     }
 
@@ -794,7 +698,6 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAdaugaDistribuitor;
     private javax.swing.JButton jButtonAdaugaProducator;
     private javax.swing.JButton jButtonTraseu;
-    private javax.swing.JButton jButtonTraseuOptim;
     private javax.swing.JButton jButtonTraseuTotal;
     private javax.swing.JComboBox<Client> jComboBoxClienti;
     private javax.swing.JComboBox<Distribuitor> jComboBoxDistribuitori;

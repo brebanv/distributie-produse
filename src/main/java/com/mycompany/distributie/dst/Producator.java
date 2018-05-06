@@ -5,13 +5,20 @@
  */
 package com.mycompany.distributie.dst;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
 public class Producator {
 
     int id;
     String nume;
     String adresa;
+    double latitude;
+    double longitude;
 
-    public Producator(int id, String nume, String adresa) {
+    public Producator(int id, String nume, String adresa, double latitude, double longitude) {
         this.id = id;
         this.nume = nume;
         this.adresa = adresa;
@@ -44,6 +51,14 @@ public class Producator {
     @Override
     public String toString() {
         return nume;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
     }
     
 }

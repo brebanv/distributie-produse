@@ -61,7 +61,6 @@ public class Distribuitor {
             HttpClient client = new DefaultHttpClient();
             String adresaURL = URLEncoder.encode(adresa, "UTF-8");
             HttpPost post = new HttpPost(basePath + "address=" + adresaURL + region + googleKey);
-            System.out.println("Get Coordinates Waypoint: "+basePath + "address=" + adresaURL + region + googleKey);
             HttpResponse response = client.execute(post);
             HttpEntity entity = response.getEntity();
             inputStream = entity.getContent();

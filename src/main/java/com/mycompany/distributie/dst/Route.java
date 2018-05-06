@@ -6,6 +6,7 @@
 package com.mycompany.distributie.dst;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -64,7 +65,7 @@ public class Route {
     }    
 
     public void setWaypoint(String waypoint) throws UnsupportedEncodingException {
-        this.waypoint = "&waypoints=" + URLEncoder.encode(waypoint, "UTF-8");;
+        this.waypoint = "&waypoints=" + URLEncoder.encode(waypoint, "UTF-8");
     }
 
     public String getWaypoint() {
@@ -84,11 +85,10 @@ public class Route {
             HttpClient client = new DefaultHttpClient();
 
             HttpPost post = new HttpPost(basePath + "origin=" + fromLocation + "&destination="+ toLocation + region + waypoint +  googleKey);
-            System.out.println(basePath + "origin=" + fromLocation + "&destination="+ toLocation + region + waypoint +  googleKey);
             HttpResponse response = client.execute(post);
             HttpEntity entity = response.getEntity();
             inputStream = entity.getContent();
-        } catch (Exception e) {
+        } catch (IOException | UnsupportedOperationException e) {
         }
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "utf-8"), 8);
@@ -99,7 +99,7 @@ public class Route {
             }
             inputStream.close();
             json = sbuild.toString();
-        } catch (Exception e) {
+        } catch (IOException e) {
         }
 
         //now parse
@@ -121,9 +121,6 @@ public class Route {
             
             JSONArray jsonObject5 = (JSONArray) jsonObject4.get("steps");  
             JSONArray jsonObject11 = (JSONArray) jsonObject10.get("steps"); 
-            
-            System.out.println((Long) distanta1.get("value"));
-            System.out.println((Long) distanta2.get("value"));
             
             Long distantaTotala = ((Long) distanta1.get("value") + (Long) distanta2.get("value"));
             
