@@ -10,10 +10,14 @@ public class Producatori {
 
     DBConex conex;
     private ResultSet rs;
-    List<Producator> producatori;
+    ArrayList <Producator> producatori;
 
     public Producatori() {
         conex = new DBConex();
+    }
+
+    public ArrayList<Producator> getProducatori() {
+        return producatori;
     }
 
     public void init() {
@@ -24,35 +28,34 @@ public class Producatori {
                 producatori = new ArrayList<>();
 
                 while (rs.next()) {
-                    producatori.add(new Producator(rs.getInt("ID"), rs.getString("NUME"), rs.getString("Adresa"), rs.getDouble("latitude"), rs.getDouble("longitude")));
+                    producatori.add(new Producator(rs.getString("NUME"), rs.getString("Adresa"), rs.getDouble("latitude"), rs.getDouble("longitude")));
                     System.out.println(rs.getInt("ID") + rs.getString("NUME") + rs.getString("Adresa") + rs.getDouble("latitude") + rs.getDouble("longitude"));
                 }
                 rs.close();
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
     }
 
-    public void modifica(Producator producator) throws SQLException {
-        operatiiBD("update PRODUCATOR set NUME = '" + producator.getNume() + "' where id=" + producator.getId());
+    public void modificaDB(Producator producator, Integer id) throws SQLException {
+        operatiiDB("update PRODUCATOR set NUME = '" + producator.getNume() + "' where id=" + id);
     }
 
-    public void sterge(Producator producator) throws SQLException {
-        operatiiBD("delete from PRODUCATOR where id=" + producator.getId());
+    public void stergeDB(Integer id) throws SQLException {
+        operatiiDB("delete from PRODUCATOR where id=" + id);
         init();
     }
 
-    public void adauga(Producator producator) throws SQLException {
-        operatiiBD("insert into PRODUCATOR(nume, adresa, latitude, longitude) "
+    public void adaugaDB(Producator producator) throws SQLException {
+        operatiiDB("insert into PRODUCATOR(nume, adresa, latitude, longitude) "
                 + "values('" + producator.getNume() + "', '" + producator.getAdresa() + "', " + producator.getLatitude() + ", " + producator.getLongitude() + ")");
         init();
     }
 
-    private void operatiiBD(String comandaSQL) throws SQLException {
-        Statement smt = conex.con.createStatement();
-        System.out.println(comandaSQL);
-        smt.executeUpdate(comandaSQL);
-        smt.close();
+    private void operatiiDB(String comandaSQL) throws SQLException {
+        try (Statement smt = conex.con.createStatement()) {
+            System.out.println(comandaSQL);
+            smt.executeUpdate(comandaSQL);
+        }
     }
 }

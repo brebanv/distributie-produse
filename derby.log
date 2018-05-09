@@ -1,8 +1,8 @@
 ----------------------------------------------------------------
-Wed May 09 11:27:27 EEST 2018:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0163-4403-28e8-00000cf7a018 
-on database directory D:\Facultate\Licenta\distributie-produse\distributie with class loader sun.misc.Launcher$AppClassLoader@5c647e05 
-Loaded from file:/D:/Facultate/Licenta/distributie-produse/target/Licenta3.0-1.0-SNAPSHOT-jar-with-dependencies.jar
+Wed May 09 18:34:54 EEST 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0163-458a-7cf6-00000e0beb88 
+on database directory D:\Facultate\Licenta\distributie-produse\distributie with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
+Loaded from file:/C:/Users/vlad.breban/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_91-b15
 user.dir=D:\Facultate\Licenta\distributie-produse
