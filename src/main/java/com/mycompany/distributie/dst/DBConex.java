@@ -1,21 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.distributie.dst;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- *
- * @author Vlad
- */
 public class DBConex {
     
     Connection con;
+    private static String dbURL = "jdbc:derby:distributie";
+    private static String tableName = "PRODUCATORI";
 
     public Connection getCon() {
         return con;
@@ -28,8 +21,8 @@ public class DBConex {
     public DBConex() {
         try {
             System.out.println("cevaaa");
-            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:derby://localhost:1527/distributie", "root", "root");
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
+            con = DriverManager.getConnection(dbURL); 
             System.out.println("---------------conexiune");
         } catch (Exception ex) {
             ex.printStackTrace();

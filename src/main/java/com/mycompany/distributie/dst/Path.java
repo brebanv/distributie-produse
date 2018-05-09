@@ -1,17 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.distributie.dst;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Vlad
- */
 public class Path {
 
     String encodedPath;
@@ -20,12 +11,12 @@ public class Path {
         this.encodedPath = encodedPath;
     }
 
-    public List<LatLng> decode() {
+    public List<Point> decode() {
         int len = encodedPath.length();
 
         // For speed we preallocate to an upper bound on the final length, then
         // truncate the array before returning.
-        final List<LatLng> path = new ArrayList<LatLng>();
+        final List<Point> path = new ArrayList<>();
         int index = 0;
         int lat = 0;
         int lng = 0;
@@ -50,7 +41,7 @@ public class Path {
             } while (b >= 0x1f);
             lng += (result & 1) != 0 ? ~(result >> 1) : (result >> 1);
 
-            path.add(new LatLng(lat * 1e-5, lng * 1e-5));
+            path.add(new Point(lat * 1e-5, lng * 1e-5));
         }
 
         return path;

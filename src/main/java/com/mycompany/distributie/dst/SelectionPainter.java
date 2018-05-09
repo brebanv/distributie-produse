@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.mycompany.distributie.dst;
 
 import java.awt.Color;
@@ -11,10 +7,6 @@ import java.awt.Rectangle;
 
 import org.jxmapviewer.painter.Painter;
 
-/**
- * Paints a selection rectangle
- * @author Martin Steiger
- */
 public class SelectionPainter implements Painter<Object>
 {
     private Color fillColor = new Color(128, 192, 255, 128);
@@ -22,9 +14,6 @@ public class SelectionPainter implements Painter<Object>
 
     private SelectionAdapter adapter;
 
-    /**
-     * @param adapter the selection adapter
-     */
     public SelectionPainter(SelectionAdapter adapter)
     {
         this.adapter = adapter;

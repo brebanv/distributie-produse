@@ -5,8 +5,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -19,8 +17,8 @@ import org.json.simple.parser.ParseException;
 
 public class Point {
 
-    double latitude;
-    double longitude;
+    public double latitude;
+    public double longitude;
 
     public Point() {
     }

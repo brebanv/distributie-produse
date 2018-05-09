@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.distributie.dst;
 
 import java.sql.ResultSet;
@@ -11,15 +6,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Vlad
- */
 public class Producatori {
 
     DBConex conex;
     private ResultSet rs;
-    private List<Producator> producatori;
+    List<Producator> producatori;
 
     public Producatori() {
         conex = new DBConex();
@@ -33,7 +24,8 @@ public class Producatori {
                 producatori = new ArrayList<>();
 
                 while (rs.next()) {
-                    producatori.add(new Producator(rs.getInt("ID"), rs.getString("NUME"), rs.getString("Adresa"), rs.getDouble("latitudine"), rs.getDouble("longitudine")));
+                    producatori.add(new Producator(rs.getInt("ID"), rs.getString("NUME"), rs.getString("Adresa"), rs.getDouble("latitude"), rs.getDouble("longitude")));
+                    System.out.println(rs.getInt("ID") + rs.getString("NUME") + rs.getString("Adresa") + rs.getDouble("latitude") + rs.getDouble("longitude"));
                 }
                 rs.close();
             }
@@ -52,9 +44,8 @@ public class Producatori {
     }
 
     public void adauga(Producator producator) throws SQLException {
-        operatiiBD("insert into PRODUCATOR(nume, adresa, latitudine, longitudine) "
-                + "values(" + producator.getNume() + ", " + producator.getAdresa()+ ", " + producator.getLatitude()+ ", '" + producator.getLongitude()+ "')");
-        //producator.setNume("");
+        operatiiBD("insert into PRODUCATOR(nume, adresa, latitude, longitude) "
+                + "values('" + producator.getNume() + "', '" + producator.getAdresa() + "', " + producator.getLatitude() + ", " + producator.getLongitude() + ")");
         init();
     }
 

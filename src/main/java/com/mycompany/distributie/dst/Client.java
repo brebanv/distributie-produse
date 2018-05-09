@@ -1,6 +1,7 @@
 package com.mycompany.distributie.dst;
 
 public class Client {
+
     int id;
     String nume;
     String adresa;
@@ -30,6 +31,4 @@ public class Client {
     public String toString() {
         return nume;
     }
-    
-    
 }

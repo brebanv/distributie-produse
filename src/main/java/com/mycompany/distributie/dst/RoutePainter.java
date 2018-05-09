@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.distributie.dst;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +12,7 @@ import org.jxmapviewer.JXMapViewer;
 import org.jxmapviewer.viewer.GeoPosition;
 import org.jxmapviewer.painter.Painter;
 
-/**
- * Paints a route
- *
- * @author Martin Steiger
- */
+
 public class RoutePainter implements Painter<JXMapViewer> {
 
     private Color color = Color.BLUE;
@@ -61,10 +51,6 @@ public class RoutePainter implements Painter<JXMapViewer> {
         g.dispose();
     }
 
-    /**
-     * @param g the graphics object
-     * @param map the map
-     */
     private void drawRoute(Graphics2D g, JXMapViewer map) {
         int lastX = 0;
         int lastY = 0;

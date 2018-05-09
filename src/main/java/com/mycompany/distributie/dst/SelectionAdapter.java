@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.mycompany.distributie.dst;
 
 import java.awt.Rectangle;
@@ -12,11 +8,6 @@ import java.awt.geom.Point2D;
 
 import org.jxmapviewer.JXMapViewer;
 
-/**
- * Creates a selection rectangle based on mouse input
- * Also triggers repaint events in the viewer
- * @author Martin Steiger
- */
 public class SelectionAdapter extends MouseAdapter 
 {
     private boolean dragging;
@@ -25,9 +16,6 @@ public class SelectionAdapter extends MouseAdapter
     private Point2D startPos = new Point2D.Double();
     private Point2D endPos = new Point2D.Double();
 
-    /**
-     * @param viewer the jxmapviewer
-     */
     public SelectionAdapter(JXMapViewer viewer)
     {
         this.viewer = viewer;

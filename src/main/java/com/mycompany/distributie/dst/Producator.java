@@ -1,14 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.distributie.dst;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 
 public class Producator {
 
@@ -22,6 +12,8 @@ public class Producator {
         this.id = id;
         this.nume = nume;
         this.adresa = adresa;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public int getId() {
@@ -60,5 +52,5 @@ public class Producator {
     public double getLongitude() {
         return longitude;
     }
-    
+
 }

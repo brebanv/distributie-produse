@@ -1,6 +1,7 @@
 package com.mycompany.distributie.dst;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -73,7 +74,7 @@ public class Distribuitor {
             }
             inputStream.close();
             json = sbuild.toString();
-        } catch (Exception e) {
+        } catch (IOException | UnsupportedOperationException e) {
         }
 
         JSONParser parser = new JSONParser();
