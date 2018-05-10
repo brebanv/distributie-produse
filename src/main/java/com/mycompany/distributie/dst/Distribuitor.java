@@ -18,12 +18,18 @@ import org.json.simple.parser.ParseException;
 
 public class Distribuitor {
 
-    int id;
     String nume;
     String adresa;
     double latitude;
     double longitude;
 
+    public Distribuitor(String nume, String adresa, double latitude, double longitude) {
+        this.nume = nume;
+        this.adresa = adresa;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+    
     public Distribuitor(String nume, String adresa) {
         this.nume = nume;
         this.adresa = adresa;
@@ -45,6 +51,15 @@ public class Distribuitor {
         this.adresa = adresa;
     }
 
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    
     @Override
     public String toString() {
         return nume;

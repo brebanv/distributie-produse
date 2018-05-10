@@ -12,3 +12,9 @@ os.arch=amd64
 os.version=10.0
 derby.system.home=D:\Facultate\Licenta\distributie-produse\DB
 Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Wed May 09 18:42:41 EEST 2018: Shutting down Derby engine
+----------------------------------------------------------------
+Wed May 09 18:42:42 EEST 2018:
+Shutting down instance a816c00e-0163-43e3-c7de-00004d797c3c on database directory D:\Facultate\Licenta\distributie-produse\DB\distributie with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
+----------------------------------------------------------------

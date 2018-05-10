@@ -18,7 +18,6 @@ import org.json.simple.parser.ParseException;
 
 public class Client {
 
-    int id;
     String nume;
     String adresa;
     double latitude;
@@ -29,6 +28,13 @@ public class Client {
         this.adresa = adresa;
     }
 
+    public Client(String nume, String adresa, double latitude, double longitude) {
+        this.nume = nume;
+        this.adresa = adresa;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+    
     public String getNume() {
         return nume;
     }
@@ -45,6 +51,15 @@ public class Client {
         this.adresa = adresa;
     }
 
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    
     @Override
     public String toString() {
         return nume;
