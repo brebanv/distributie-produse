@@ -1,11 +1,11 @@
 ----------------------------------------------------------------
-Thu May 10 18:48:35 EEST 2018:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0163-4abd-5fe7-00000df8da98 
-on database directory D:\Facultate\Licenta\distributie-produse\distributie with class loader sun.misc.Launcher$AppClassLoader@18b4aac2 
-Loaded from file:/C:/Users/vlad.breban/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
+Thu May 10 21:46:23 EEST 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0163-4b60-2a73-0000037d7d08 
+on database directory C:\Users\Vlad\Documents\NetBeansProjects\DistributieCuStartSiStop\Distributie\distributie with class loader sun.misc.Launcher$AppClassLoader@18b4aac2 
+Loaded from file:/C:/Users/Vlad/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_91-b15
-user.dir=D:\Facultate\Licenta\distributie-produse
+java.runtime.version=1.8.0_161-b12
+user.dir=C:\Users\Vlad\Documents\NetBeansProjects\DistributieCuStartSiStop\Distributie
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0

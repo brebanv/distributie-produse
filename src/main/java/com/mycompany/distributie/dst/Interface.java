@@ -488,7 +488,7 @@ public final class Interface extends javax.swing.JFrame {
         RoutePainter routePainter = new RoutePainter(track);
         prepareMap();
         mapViewer.zoomToBestFit(new HashSet<>(track), 0.7);
-        deseneazaWayponts(from, to, (Distribuitor) distribuitor, routePainter);
+        //deseneazaWayponts(from, to, (Distribuitor) distribuitor, routePainter);
         removeLoading();
     }
 
@@ -521,20 +521,20 @@ public final class Interface extends javax.swing.JFrame {
             track.add(g);
         }
 
-//        RoutePainter routePainter = new RoutePainter(track);
-//        prepareMap();
-//        mapViewer.zoomToBestFit(new HashSet<>(track), 0.7);
-//        deseneazaWayponts(from, to, (Distribuitor) distribuitor, routePainter);
-//        removeLoading();
+        RoutePainter routePainter = new RoutePainter(track);
+        prepareMap();
+        mapViewer.zoomToBestFit(new HashSet<>(track), 0.7);
+        deseneazaWayponts(start, stop, mijloc, routePainter);
+        removeLoading();
     }
 
-    private void deseneazaWayponts(Point from, Point to, Distribuitor distribuitor, RoutePainter routePainter) {
+    private void deseneazaWayponts(Point from, Point to, Point mijloc, RoutePainter routePainter) {
         // Create waypoints from the geo-positions
         Set<Waypoint> waypoints = new HashSet<>();
 
         GeoPosition g1 = new GeoPosition(from.getLatitude(), from.getLongitude());
         GeoPosition g2 = new GeoPosition(to.getLatitude(), to.getLongitude());
-        GeoPosition g3 = new GeoPosition(((Distribuitor) distribuitor).latitude, ((Distribuitor) distribuitor).longitude);
+        GeoPosition g3 = new GeoPosition(mijloc.getLatitude(), mijloc.getLongitude());
 
         waypoints.add(new DefaultWaypoint(g1));
         waypoints.add(new DefaultWaypoint(g2));
@@ -564,9 +564,13 @@ public final class Interface extends javax.swing.JFrame {
 
     private void jButtonTraseuTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTraseuTotalActionPerformed
         System.out.println(jComboBoxProducatori.getSelectedIndex() + " " + jComboBoxDistribuitori.getSelectedIndex() + " " + jComboBoxClienti.getSelectedIndex());
+        
+        
         Point start = new Point(producatori.get(jComboBoxProducatori.getSelectedIndex()).getLatitude(), producatori.get(jComboBoxProducatori.getSelectedIndex()).getLongitude());
         Point mijloc = new Point(distribuitori.get(jComboBoxDistribuitori.getSelectedIndex()).getLatitude(), distribuitori.get(jComboBoxDistribuitori.getSelectedIndex()).getLongitude());
         Point stop = new Point(clienti.get(jComboBoxClienti.getSelectedIndex()).getLatitude(), clienti.get(jComboBoxClienti.getSelectedIndex()).getLongitude());
+        
+        
         try {
             deseneazaRutaCuPuncte(start, mijloc, stop);
         } catch (MalformedURLException ex) {

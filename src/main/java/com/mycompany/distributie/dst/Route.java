@@ -83,15 +83,12 @@ public class Route {
         waypoint = mijloc.getLatitude() + "," + mijloc.getLongitude();
         try {
             HttpClient client = new DefaultHttpClient();
-
             HttpPost post = new HttpPost(basePath + "origin=" + fromLocation + "&destination="+ toLocation + region + waypoint +  googleKey);
             System.out.println(basePath + "origin=" + fromLocation + "&destination="+ toLocation + region + "&waypoints=" + waypoint +  googleKey);
             HttpResponse response = client.execute(post);
             HttpEntity entity = response.getEntity();
             inputStream = entity.getContent();
-        } catch (IOException | UnsupportedOperationException e) {
-        }
-        try {
+            
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "utf-8"), 8);
             StringBuilder sbuild = new StringBuilder();
             String line = null;
@@ -100,7 +97,7 @@ public class Route {
             }
             inputStream.close();
             json = sbuild.toString();
-        } catch (IOException e) {
+        } catch (IOException | UnsupportedOperationException e) {
         }
 
         //now parse
@@ -109,21 +106,23 @@ public class Route {
         try {
             //now read
             obj = parser.parse(json);
+            System.out.println(json);
             JSONObject jb = (JSONObject) obj;
             JSONArray routes = (JSONArray) jb.get("routes");
             JSONObject jsonObject2 = (JSONObject) routes.get(0);
             JSONArray legs = (JSONArray) jsonObject2.get("legs");
             
             JSONObject jsonObject4 = (JSONObject) legs.get(0);
+            System.out.println(legs.size());
             JSONObject jsonObject10 = (JSONObject) legs.get(1);
             
             JSONObject distanta1 = (JSONObject) jsonObject4.get("distance");
-            JSONObject distanta2 = (JSONObject) jsonObject10.get("distance");
+            //JSONObject distanta2 = (JSONObject) jsonObject10.get("distance");
             
             JSONArray jsonObject5 = (JSONArray) jsonObject4.get("steps");  
-            JSONArray jsonObject11 = (JSONArray) jsonObject10.get("steps"); 
+            //JSONArray jsonObject11 = (JSONArray) jsonObject10.get("steps"); 
             
-            Long distantaTotala = ((Long) distanta1.get("value") + (Long) distanta2.get("value"));
+            Long distantaTotala = ((Long) distanta1.get("value") ); // + (Long) distanta2.get("value")
             
             this.distanta = distantaTotala;
                         
@@ -132,11 +131,11 @@ public class Route {
                 JSONObject jsonObject7 = (JSONObject) jsonObject6.get("polyline");
                 resultPath.add((String) jsonObject7.get("points"));
             }
-            for (int i = 0; i < jsonObject11.size(); i++) {
-                JSONObject jsonObject6 = (JSONObject) jsonObject11.get(i);
-                JSONObject jsonObject7 = (JSONObject) jsonObject6.get("polyline");
-                resultPath.add((String) jsonObject7.get("points"));
-            }
+//            for (int i = 0; i < jsonObject11.size(); i++) {
+//                JSONObject jsonObject6 = (JSONObject) jsonObject11.get(i);
+//                JSONObject jsonObject7 = (JSONObject) jsonObject6.get("polyline");
+//                resultPath.add((String) jsonObject7.get("points"));
+//            }
             return resultPath;
         } catch (ParseException ex) {
             System.out.println(ex);
