@@ -21,6 +21,9 @@ public class Route {
     
     String fromLocation;
     String toLocation;
+    Point start;
+    Point mijloc;
+    Point stop;
     String basePath = "https://maps.googleapis.com/maps/api/directions/json?";
     String googleKey = "&key=AIzaSyAmFZVeNDgmAcVNFA1OHwhPBM4lKTHZsSc";
     String region = "&region=ro";
@@ -33,6 +36,12 @@ public class Route {
     public Route(String fromLocation, String toLocation) {
         this.fromLocation = fromLocation;
         this.toLocation = toLocation;
+    }
+
+    public Route(Point start, Point mijloc, Point stop) {
+        this.start = start;
+        this.mijloc = mijloc;
+        this.stop = stop;
     }
 
     public String getFromLocation() {
@@ -63,6 +72,77 @@ public class Route {
         return waypoint;
     }
 
+    public ArrayList<String> getRouteDetails() throws UnsupportedEncodingException{
+        
+        ArrayList<String> resultPath = new ArrayList<>();
+        InputStream inputStream = null;
+        String json = "";
+
+        fromLocation = start.getLatitude() + "," + start.getLongitude();
+        toLocation = stop.getLatitude() + "," + stop.getLongitude();
+        waypoint = mijloc.getLatitude() + "," + mijloc.getLongitude();
+        try {
+            HttpClient client = new DefaultHttpClient();
+
+            HttpPost post = new HttpPost(basePath + "origin=" + fromLocation + "&destination="+ toLocation + region + waypoint +  googleKey);
+            System.out.println(basePath + "origin=" + fromLocation + "&destination="+ toLocation + region + "&waypoints=" + waypoint +  googleKey);
+            HttpResponse response = client.execute(post);
+            HttpEntity entity = response.getEntity();
+            inputStream = entity.getContent();
+        } catch (IOException | UnsupportedOperationException e) {
+        }
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "utf-8"), 8);
+            StringBuilder sbuild = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sbuild.append(line);
+            }
+            inputStream.close();
+            json = sbuild.toString();
+        } catch (IOException e) {
+        }
+
+        //now parse
+        JSONParser parser = new JSONParser();
+        Object obj;
+        try {
+            //now read
+            obj = parser.parse(json);
+            JSONObject jb = (JSONObject) obj;
+            JSONArray routes = (JSONArray) jb.get("routes");
+            JSONObject jsonObject2 = (JSONObject) routes.get(0);
+            JSONArray legs = (JSONArray) jsonObject2.get("legs");
+            
+            JSONObject jsonObject4 = (JSONObject) legs.get(0);
+            JSONObject jsonObject10 = (JSONObject) legs.get(1);
+            
+            JSONObject distanta1 = (JSONObject) jsonObject4.get("distance");
+            JSONObject distanta2 = (JSONObject) jsonObject10.get("distance");
+            
+            JSONArray jsonObject5 = (JSONArray) jsonObject4.get("steps");  
+            JSONArray jsonObject11 = (JSONArray) jsonObject10.get("steps"); 
+            
+            Long distantaTotala = ((Long) distanta1.get("value") + (Long) distanta2.get("value"));
+            
+            this.distanta = distantaTotala;
+                        
+            for (int i = 0; i < jsonObject5.size(); i++) {
+                JSONObject jsonObject6 = (JSONObject) jsonObject5.get(i);
+                JSONObject jsonObject7 = (JSONObject) jsonObject6.get("polyline");
+                resultPath.add((String) jsonObject7.get("points"));
+            }
+            for (int i = 0; i < jsonObject11.size(); i++) {
+                JSONObject jsonObject6 = (JSONObject) jsonObject11.get(i);
+                JSONObject jsonObject7 = (JSONObject) jsonObject6.get("polyline");
+                resultPath.add((String) jsonObject7.get("points"));
+            }
+            return resultPath;
+        } catch (ParseException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
     
     public ArrayList<String> getRouteDetailsWithWayPoints() throws UnsupportedEncodingException{
         

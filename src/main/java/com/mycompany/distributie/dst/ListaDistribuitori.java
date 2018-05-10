@@ -38,7 +38,7 @@ public class ListaDistribuitori {
     
     public void creareDB() throws SQLException {
         operatiiDB("create table DISTRIBUITOR"
-                + "(   ID INTEGER not null primary key GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),"
+                    + "(   ID INTEGER not null primary key GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),"
                 + "    NUME VARCHAR(255) not null,"
                 + "	ADRESA VARCHAR(255) not null,"
                 + "	LATITUDE DOUBLE not null,"

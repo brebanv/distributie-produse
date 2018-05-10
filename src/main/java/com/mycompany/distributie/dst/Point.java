@@ -19,6 +19,8 @@ public class Point {
 
     public double latitude;
     public double longitude;
+    String basePath = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+    String googleKey = "&key=AIzaSyAmFZVeNDgmAcVNFA1OHwhPBM4lKTHZsSc";
 
     public Point() {
     }
@@ -43,9 +45,6 @@ public class Point {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
-
-    String basePath = "https://maps.googleapis.com/maps/api/geocode/json?address=";
-    String googleKey = "&key=AIzaSyAmFZVeNDgmAcVNFA1OHwhPBM4lKTHZsSc";
 
     public void getCoordinates(String loc) throws UnsupportedEncodingException {
         InputStream inputStream = null;

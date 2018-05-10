@@ -20,11 +20,10 @@ public class DBConex {
 
     public DBConex() {
         try {
-            System.out.println("cevaaa");
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
             con = DriverManager.getConnection(dbURL); 
-            System.out.println("---------------conexiune");
-        } catch (Exception ex) {
+            System.out.println("---conexiune");
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException ex) {
             ex.printStackTrace();
         }
     }
@@ -32,7 +31,7 @@ public class DBConex {
     public void finalize() {
         try {
             con.close();
-            System.out.println("----------------inchidere conexiune");
+            System.out.println("---inchidere conexiune");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

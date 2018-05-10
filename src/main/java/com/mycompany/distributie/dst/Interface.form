@@ -159,7 +159,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jTextFieldAdaugaProducatorNume" min="-2" pref="219" max="-2" attributes="0"/>
+                                      <Component id="jTextFieldAdaugaProducatorNume" min="-2" pref="252" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
@@ -175,7 +175,7 @@
                               <Component id="jLabelLoadingAdaugaProducator" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="517" max="32767" attributes="0"/>
+                      <EmptySpace pref="484" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -248,16 +248,16 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jTextFieldAdaugaDistNume" min="-2" pref="242" max="-2" attributes="0"/>
+                                      <Component id="jTextFieldAdaugaDistNume" min="-2" pref="250" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jTextFieldAdaugaDistAdresa" min="-2" pref="243" max="-2" attributes="0"/>
+                                      <Component id="jTextFieldAdaugaDistAdresa" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -268,7 +268,7 @@
                               <Component id="jLabelLoadingAdaugaDistribuitor" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="494" max="32767" attributes="0"/>
+                      <EmptySpace pref="486" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -343,21 +343,21 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jTextFieldAdaugaClientNume" min="-2" pref="254" max="-2" attributes="0"/>
+                              <Component id="jTextFieldAdaugaClientNume" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jTextFieldAdaugaClientAdresa" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
                                       <Component id="jButtonAdaugaClient" min="-2" pref="104" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="jLabelLoadingAdaugaClient" min="-2" pref="70" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jTextFieldAdaugaClientAdresa" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -379,12 +379,12 @@
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextFieldAdaugaClientAdresa" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jButtonAdaugaClient" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelLoadingAdaugaClient" min="-2" pref="30" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jButtonAdaugaClient" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelLoadingAdaugaClient" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="459" max="32767" attributes="0"/>
+                      <EmptySpace pref="456" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
