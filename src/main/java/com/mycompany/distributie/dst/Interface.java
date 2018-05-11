@@ -518,7 +518,7 @@ public final class Interface extends javax.swing.JFrame {
                 Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
             }
         }).start();
-        
+
     }//GEN-LAST:event_jButtonTraseuActionPerformed
 
     private void jButtonAdaugaClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdaugaClientActionPerformed
