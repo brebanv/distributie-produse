@@ -8,7 +8,6 @@ public class DBConex {
     
     Connection con;
     private static String dbURL = "jdbc:derby:distributie";
-    private static String tableName = "PRODUCATORI";
 
     public Connection getCon() {
         return con;
@@ -22,7 +21,6 @@ public class DBConex {
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
             con = DriverManager.getConnection(dbURL); 
-            System.out.println("---conexiune");
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException ex) {
             ex.printStackTrace();
         }
@@ -31,7 +29,6 @@ public class DBConex {
     public void finalize() {
         try {
             con.close();
-            System.out.println("---inchidere conexiune");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

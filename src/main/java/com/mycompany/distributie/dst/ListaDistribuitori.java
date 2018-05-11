@@ -28,11 +28,11 @@ public class ListaDistribuitori {
 
                 while (rs.next()) {
                     distribuitori.add(new Distribuitor(rs.getString("NUME"), rs.getString("ADRESA"), rs.getDouble("LATITUDE"), rs.getDouble("LONGITUDE")));
-                    System.out.println(rs.getInt("ID") + rs.getString("NUME") + rs.getString("ADRESA") + rs.getDouble("LATITUDE") + rs.getDouble("LONGITUDE"));
                 }
                 rs.close();
             }
         } catch (SQLException ex) {
+            System.out.println(ex);
         }
     }
     

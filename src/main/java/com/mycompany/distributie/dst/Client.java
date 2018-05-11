@@ -67,7 +67,7 @@ public class Client {
     
     public void setCoordinates() throws UnsupportedEncodingException, ParseException {
         String adresa = URLEncoder.encode(this.adresa, "UTF-8");
-        InputStream inputStream = null;
+        InputStream inputStream;
         String json = "";
         String basePath = "https://maps.google.com/maps/api/geocode/json?";
         String googleKey = "&key=AIzaSyAmFZVeNDgmAcVNFA1OHwhPBM4lKTHZsSc";

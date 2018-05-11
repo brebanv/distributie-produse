@@ -28,11 +28,11 @@ public class ListaProducatori {
 
                 while (rs.next()) {
                     producatori.add(new Producator(rs.getString("NUME"), rs.getString("Adresa"), rs.getDouble("latitude"), rs.getDouble("longitude")));
-                    System.out.println(rs.getInt("ID") + rs.getString("NUME") + rs.getString("Adresa") + rs.getDouble("latitude") + rs.getDouble("longitude"));
                 }
                 rs.close();
             }
         } catch (SQLException ex) {
+            System.out.println(ex);
         }
     }
     
