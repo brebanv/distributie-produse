@@ -9,10 +9,10 @@ import org.jxmapviewer.painter.Painter;
 
 public class SelectionPainter implements Painter<Object>
 {
-    private Color fillColor = new Color(128, 192, 255, 128);
-    private Color frameColor = new Color(0, 0, 255, 128);
+    private final Color fillColor = new Color(128, 192, 255, 128);
+    private final Color frameColor = new Color(0, 0, 255, 128);
 
-    private SelectionAdapter adapter;
+    private final SelectionAdapter adapter;
 
     public SelectionPainter(SelectionAdapter adapter)
     {

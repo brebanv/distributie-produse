@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Path {
 
-    String encodedPath;
+    private String encodedPath;
 
     public Path(String encodedPath) {
         this.encodedPath = encodedPath;
@@ -13,9 +13,6 @@ public class Path {
 
     public List<Point> decode() {
         int len = encodedPath.length();
-
-        // For speed we preallocate to an upper bound on the final length, then
-        // truncate the array before returning.
         final List<Point> path = new ArrayList<>();
         int index = 0;
         int lat = 0;
@@ -43,7 +40,6 @@ public class Path {
 
             path.add(new Point(lat * 1e-5, lng * 1e-5));
         }
-
         return path;
     }
 }

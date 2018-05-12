@@ -7,9 +7,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class ListaClienti {
-    DBConex conex;
+    private DBConex conex;
     private ResultSet rs;
-    ArrayList<Client> clienti;
+    private ArrayList<Client> clienti;
 
     public ListaClienti() {
         conex = new DBConex();

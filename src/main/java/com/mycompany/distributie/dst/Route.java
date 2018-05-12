@@ -19,20 +19,18 @@ import org.json.simple.parser.ParseException;
 
 public class Route {
 
-    String fromLocation;
-    String toLocation;
-    Point start;
-    Point mijloc;
-    Point stop;
-    String basePath = "https://maps.googleapis.com/maps/api/directions/json?";
-    String googleKey = "&key=AIzaSyAmFZVeNDgmAcVNFA1OHwhPBM4lKTHZsSc";
-    String region = "&region=ro";
-    String optimize = "&waypoints=optimize:true";
-    String waypoint = "";
-    Long distanta;
-    Long durata;
-    double latWaypoint;
-    double lngWaypoint;
+    private String fromLocation;
+    private String toLocation;
+    private Point start;
+    private Point mijloc;
+    private Point stop;
+    private final String basePath = "https://maps.googleapis.com/maps/api/directions/json?";
+    private final String googleKey = "&key=AIzaSyAmFZVeNDgmAcVNFA1OHwhPBM4lKTHZsSc";
+    private final String region = "&region=ro";
+    private final String optimize = "&waypoints=optimize:true";
+    private String waypoint = "";
+    private Long distanta;
+    private Long durata;
 
     public Route(String fromLocation, String toLocation) {
         this.fromLocation = fromLocation;

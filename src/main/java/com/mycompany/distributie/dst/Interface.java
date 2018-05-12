@@ -36,20 +36,18 @@ import org.jxmapviewer.input.ZoomMouseWheelListenerCursor;
 
 public final class Interface extends javax.swing.JFrame {
 
-    JXMapViewer mapViewer = new JXMapViewer();
-    ArrayList<Distribuitor> distribuitori = new ArrayList<>();
-    ArrayList<Client> clienti = new ArrayList<>();
-    ArrayList<Producator> producatori = new ArrayList<>();
-    String distantaRuta = "";
-    Boolean prodDist = true;
-    ImageIcon imageIcon;
+    private JXMapViewer mapViewer = new JXMapViewer();
+    private ArrayList<Distribuitor> distribuitori = new ArrayList<>();
+    private ArrayList<Client> clienti = new ArrayList<>();
+    private ArrayList<Producator> producatori = new ArrayList<>();
+    private ImageIcon imageIcon;
 
     public Interface() {
         initComponents();
         initInterface();
     }
 
-    void initInterface() {
+    private void initInterface() {
         this.setResizable(false);
         this.setLayout(null);
         this.setLocationRelativeTo(null);
@@ -78,7 +76,7 @@ public final class Interface extends javax.swing.JFrame {
         addMouseInteractions();
     }
 
-    void initComboBox() {
+    private void initComboBox() {
         ListaProducatori listaProducatori = new ListaProducatori();
         listaProducatori.init();
         producatori = listaProducatori.getProducatori();
@@ -430,7 +428,7 @@ public final class Interface extends javax.swing.JFrame {
         jPanelMap.setSize(600, 800);
     }
 
-    void deseneazaRuta(Point start, Point mijloc, Point stop) throws MalformedURLException {
+    private void deseneazaRuta(Point start, Point mijloc, Point stop) throws MalformedURLException {
         addLoading();
         Route route = new Route(start, mijloc, stop);
 
@@ -588,7 +586,6 @@ public final class Interface extends javax.swing.JFrame {
 
     private void removeLoading() {
         jLabelLoading.setVisible(false);
-
     }
 
     private void addLoading() {

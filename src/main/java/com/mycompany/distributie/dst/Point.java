@@ -19,11 +19,8 @@ public class Point {
 
     public double latitude;
     public double longitude;
-    String basePath = "https://maps.googleapis.com/maps/api/geocode/json?address=";
-    String googleKey = "&key=AIzaSyAmFZVeNDgmAcVNFA1OHwhPBM4lKTHZsSc";
-
-    public Point() {
-    }
+    private final String basePath = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+    private final String googleKey = "&key=AIzaSyAmFZVeNDgmAcVNFA1OHwhPBM4lKTHZsSc";
 
     public Point(double latitude, double longitude) {
         this.latitude = latitude;

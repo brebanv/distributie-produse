@@ -18,10 +18,10 @@ import org.json.simple.parser.ParseException;
 
 public class Distribuitor {
 
-    String nume;
-    String adresa;
-    double latitude;
-    double longitude;
+    private String nume;
+    private String adresa;
+    private double latitude;
+    private double longitude;
 
     public Distribuitor(String nume, String adresa, double latitude, double longitude) {
         this.nume = nume;

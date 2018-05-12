@@ -15,13 +15,13 @@ import org.jxmapviewer.painter.Painter;
 
 public class RoutePainter implements Painter<JXMapViewer> {
 
-    private Color color = Color.BLUE;
-    private boolean antiAlias = true;
+    private final Color color = Color.BLUE;
+    private final boolean antiAlias = true;
 
-    private List<GeoPosition> track;
+    private final List<GeoPosition> track;
 
     public RoutePainter(List<GeoPosition> track) {
-        this.track = new ArrayList<GeoPosition>(track);
+        this.track = new ArrayList<>(track);
     }
 
     @Override

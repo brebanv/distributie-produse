@@ -18,10 +18,10 @@ import org.json.simple.parser.ParseException;
 
 public class Client {
 
-    String nume;
-    String adresa;
-    double latitude;
-    double longitude;
+    private String nume;
+    private String adresa;
+    private double latitude;
+    private double longitude;
 
     public Client(String nume, String adresa) {
         this.nume = nume;

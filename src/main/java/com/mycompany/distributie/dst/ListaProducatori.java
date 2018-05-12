@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 public class ListaProducatori {
 
-    DBConex conex;
+    private DBConex conex;
     private ResultSet rs;
-    ArrayList<Producator> producatori;
+    private ArrayList<Producator> producatori;
 
     public ListaProducatori() {
         conex = new DBConex();
