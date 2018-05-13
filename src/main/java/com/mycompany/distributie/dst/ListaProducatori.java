@@ -50,7 +50,12 @@ public class ListaProducatori {
                 + "values('" + producator.getNume() + "', '" + producator.getAdresa() + "', " + producator.getLatitude() + ", " + producator.getLongitude() + ")");
         init();
     }
-
+    
+    public void deleteAllRows() throws SQLException{
+        operatiiDB("delete from PRODUCATOR where id > 0");
+        init();
+    }
+    
     private void operatiiDB(String comandaSQL) throws SQLException {
         try (Statement smt = conex.con.createStatement()) {
             System.out.println(comandaSQL);

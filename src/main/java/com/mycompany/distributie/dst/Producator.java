@@ -22,17 +22,17 @@ public class Producator {
     private String adresa;
     private double latitude;
     private double longitude;
-
+    
+    public Producator(String nume, String adresa){
+        this.nume = nume;
+        this.adresa = adresa;
+    }
+    
     public Producator(String nume, String adresa, double latitude, double longitude) {
         this.nume = nume;
         this.adresa = adresa;
         this.latitude = latitude;
         this.longitude = longitude;
-    }
-    
-    public Producator(String nume, String adresa){
-        this.nume = nume;
-        this.adresa = adresa;
     }
     
     public String getNume() {

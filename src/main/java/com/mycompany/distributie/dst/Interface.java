@@ -132,6 +132,7 @@ public final class Interface extends javax.swing.JFrame {
         jLabelDistantaText = new javax.swing.JLabel();
         jLabelDurataText = new javax.swing.JLabel();
         jLabelDurata = new javax.swing.JLabel();
+        jButtonStergeTot = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -301,8 +302,7 @@ public final class Interface extends javax.swing.JFrame {
                                 .addGap(54, 54, 54)
                                 .addComponent(jButtonAdaugaClient, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabelLoadingAdaugaClient, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabelLoadingAdaugaClient, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextFieldAdaugaClientAdresa))))
@@ -353,6 +353,13 @@ public final class Interface extends javax.swing.JFrame {
 
         jLabelDurataText.setText("Durata:");
 
+        jButtonStergeTot.setText("Sterge Tot");
+        jButtonStergeTot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonStergeTotActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -370,7 +377,9 @@ public final class Interface extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jComboBoxDistribuitori, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(75, 75, 75)
-                                .addComponent(jButtonTraseu))))
+                                .addComponent(jButtonTraseu)
+                                .addGap(61, 61, 61)
+                                .addComponent(jButtonStergeTot))))
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -401,18 +410,20 @@ public final class Interface extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxDistribuitori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
-                    .addComponent(jButtonTraseu))
+                    .addComponent(jButtonTraseu)
+                    .addComponent(jButtonStergeTot))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTraseuOptim)
                     .addComponent(jComboBoxClienti, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelDistanta)
-                    .addComponent(jLabelDistantaText)
-                    .addComponent(jLabelDurataText)
-                    .addComponent(jLabelDurata, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelDurata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabelDistanta)
+                        .addComponent(jLabelDistantaText)
+                        .addComponent(jLabelDurataText)))
                 .addGap(4, 4, 4)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)
                 .addContainerGap())
@@ -544,45 +555,65 @@ public final class Interface extends javax.swing.JFrame {
 
     private void jButtonAdaugaDistribuitorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdaugaDistribuitorActionPerformed
         jLabelLoadingAdaugaDistribuitor.setVisible(true);
-        try {
-            Distribuitor d = new Distribuitor(jTextFieldAdaugaDistNume.getText(), jTextFieldAdaugaDistAdresa.getText());
-            d.setCoordinates();
-            Distribuitor distribuitor = new Distribuitor(d.getNume(), d.getAdresa(), d.getLatitude(), d.getLongitude());
-            ListaDistribuitori listaDistribuitori = new ListaDistribuitori();
+        new Thread(() -> {
             try {
-                listaDistribuitori.adaugaDB(distribuitor);
-            } catch (SQLException ex) {
+                Distribuitor d = new Distribuitor(jTextFieldAdaugaDistNume.getText(), jTextFieldAdaugaDistAdresa.getText());
+                d.setCoordinates();
+                Distribuitor distribuitor = new Distribuitor(d.getNume(), d.getAdresa(), d.getLatitude(), d.getLongitude());
+                ListaDistribuitori listaDistribuitori = new ListaDistribuitori();
+                try {
+                    listaDistribuitori.adaugaDB(distribuitor);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                distribuitori.add(distribuitor);
+                listaDistribuitori.init();
+                refreshComboBox();
+                jLabelLoadingAdaugaDistribuitor.setVisible(false);
+            } catch (UnsupportedEncodingException | ParseException ex) {
                 Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
             }
-            distribuitori.add(distribuitor);
-            listaDistribuitori.init();
-            refreshComboBox();
-            jLabelLoadingAdaugaDistribuitor.setVisible(false);
-        } catch (UnsupportedEncodingException | ParseException ex) {
-            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }).start();
     }//GEN-LAST:event_jButtonAdaugaDistribuitorActionPerformed
 
     private void jButtonAdaugaProducatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdaugaProducatorActionPerformed
         jLabelLoadingAdaugaProducator.setVisible(true);
-        try {
-            Producator p = new Producator(jTextFieldAdaugaProducatorNume.getText(), jTextFieldAdaugaProducatorAdresa.getText());
-            p.setCoordinates();
-            Producator producator = new Producator(p.getNume(), p.getAdresa(), p.getLatitude(), p.getLongitude());
-            ListaProducatori listaProducatori = new ListaProducatori();
+        new Thread(() -> {
             try {
-                listaProducatori.adaugaDB(producator);
-            } catch (SQLException ex) {
+                Producator p = new Producator(jTextFieldAdaugaProducatorNume.getText(), jTextFieldAdaugaProducatorAdresa.getText());
+                p.setCoordinates();
+                Producator producator = new Producator(p.getNume(), p.getAdresa(), p.getLatitude(), p.getLongitude());
+                ListaProducatori listaProducatori = new ListaProducatori();
+                try {
+                    listaProducatori.adaugaDB(producator);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                producatori.add(producator);
+                listaProducatori.init();
+                refreshComboBox();
+                jLabelLoadingAdaugaProducator.setVisible(false);
+            } catch (UnsupportedEncodingException | ParseException ex) {
                 Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
             }
-            producatori.add(producator);
-            listaProducatori.init();
+        }).start();
+    }//GEN-LAST:event_jButtonAdaugaProducatorActionPerformed
+
+    private void jButtonStergeTotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStergeTotActionPerformed
+        try {
+            ListaProducatori stergeProducatori = new ListaProducatori();
+            stergeProducatori.deleteAllRows();
+            ListaDistribuitori stergeDistribuitori = new ListaDistribuitori();
+            stergeDistribuitori.deleteAllRows();
+            ListaClienti stergeClienti = new ListaClienti();
+            stergeClienti.deleteAllRows();
+
+            initComboBox();
             refreshComboBox();
-            jLabelLoadingAdaugaProducator.setVisible(false);
-        } catch (UnsupportedEncodingException | ParseException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButtonAdaugaProducatorActionPerformed
+    }//GEN-LAST:event_jButtonStergeTotActionPerformed
 
     private void removeLoading() {
         jLabelLoading.setVisible(false);
@@ -652,6 +683,7 @@ public final class Interface extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAdaugaClient;
     private javax.swing.JButton jButtonAdaugaDistribuitor;
     private javax.swing.JButton jButtonAdaugaProducator;
+    private javax.swing.JButton jButtonStergeTot;
     private javax.swing.JButton jButtonTraseu;
     private javax.swing.JComboBox<Client> jComboBoxClienti;
     private javax.swing.JComboBox<Distribuitor> jComboBoxDistribuitori;

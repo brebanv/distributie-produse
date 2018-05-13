@@ -61,7 +61,12 @@ public class ListaDistribuitori {
                 + "values('" + distribuitor.getNume() + "', '" + distribuitor.getAdresa() + "', " + distribuitor.getLatitude() + ", " + distribuitor.getLongitude() + ")");
         init();
     }
-
+    
+    public void deleteAllRows() throws SQLException{
+        operatiiDB("delete from DISTRIBUITOR where id > 0");
+        init();
+    }
+    
     private void operatiiDB(String comandaSQL) throws SQLException {
         try (Statement smt = conex.con.createStatement()) {
             System.out.println(comandaSQL);

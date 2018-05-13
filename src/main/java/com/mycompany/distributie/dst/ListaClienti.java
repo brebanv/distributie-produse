@@ -55,7 +55,12 @@ public class ListaClienti {
                 + "values('" + client.getNume() + "', '" + client.getAdresa() + "', " + client.getLatitude() + ", " + client.getLongitude() + ")");
         init();
     }
-
+    
+    public void deleteAllRows() throws SQLException{
+        operatiiDB("delete from CLIENT where id > 0");
+        init();
+    }
+    
     private void operatiiDB(String comandaSQL) throws SQLException {
         try (Statement smt = conex.con.createStatement()) {
             System.out.println(comandaSQL);
