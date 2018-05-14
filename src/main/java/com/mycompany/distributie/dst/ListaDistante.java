@@ -1,4 +1,3 @@
-
 package com.mycompany.distributie.dst;
 
 import java.sql.ResultSet;
@@ -7,7 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class ListaDistante {
-    
+
     private DBConex conex;
     private ResultSet rs;
     private ArrayList<Distanta> distantaPD;
@@ -24,8 +23,6 @@ public class ListaDistante {
     public ArrayList<Distanta> getDistantaDC() {
         return distantaDC;
     }
-
-    
 
     public void init() {
         try {
@@ -45,7 +42,7 @@ public class ListaDistante {
             System.out.println(ex);
         }
     }
-    
+
     public void creareDB() throws SQLException {
         operatiiDB("create table DISTANTE"
                 + "    IDPRODUCATOR INTEGER not null,"
@@ -55,28 +52,28 @@ public class ListaDistante {
                 + "	DISTANTADC INTEGER not null"
                 + ")");
     }
-    
-    public void modificaDB(Distribuitor distribuitor, Integer id) throws SQLException {
-        operatiiDB("update DISTRIBUITOR set NUME = '" + distribuitor.getNume() + "' where id=" + id);
+
+//    public void modificaDB(Distribuitor distribuitor, Integer id) throws SQLException {
+//        operatiiDB("update DISTRIBUITOR set NUME = '" + distribuitor.getNume() + "' where id=" + id);
+//        init();
+//    }
+//
+//    public void stergeDB(Integer id) throws SQLException {
+//        operatiiDB("delete from DISTRIBUITOR where id=" + id);
+//        init();
+//    }
+
+    public void adaugaDB(Distanta distanta) throws SQLException {
+        operatiiDB("insert into DISTANTE(IDPRODUCATOR, IDDISTRIBUITOR, IDCLIENT, DISTANTAPD, DISTANTADC) "
+                + "values(" + distanta.getIdProducator() + ", " + distanta.getIdDistribuitor() + ", " + distanta.getIdClient() + ", " + distanta.get+ ")");
         init();
     }
 
-    public void stergeDB(Integer id) throws SQLException {
-        operatiiDB("delete from DISTRIBUITOR where id=" + id);
+    public void deleteAllRows() throws SQLException {
+        operatiiDB("delete from DISTANTE where id > 0");
         init();
     }
 
-    public void adaugaDB(Distribuitor distribuitor) throws SQLException {
-        operatiiDB("insert into DISTANTE(nume, adresa, latitude, longitude) "
-                + "values('" + distribuitor.getNume() + "', '" + distribuitor.getAdresa() + "', " + distribuitor.getLatitude() + ", " + distribuitor.getLongitude() + ")");
-        init();
-    }
-    
-    public void deleteAllRows() throws SQLException{
-        operatiiDB("delete from DISTRIBUITOR where id > 0");
-        init();
-    }
-    
     private void operatiiDB(String comandaSQL) throws SQLException {
         try (Statement smt = conex.con.createStatement()) {
             System.out.println(comandaSQL);

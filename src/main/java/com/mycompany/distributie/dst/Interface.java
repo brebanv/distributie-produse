@@ -36,7 +36,7 @@ import org.jxmapviewer.input.ZoomMouseWheelListenerCursor;
 
 public final class Interface extends javax.swing.JFrame {
 
-    private JXMapViewer mapViewer = new JXMapViewer();
+    private final JXMapViewer mapViewer = new JXMapViewer();
     private ArrayList<Distribuitor> distribuitori = new ArrayList<>();
     private ArrayList<Client> clienti = new ArrayList<>();
     private ArrayList<Producator> producatori = new ArrayList<>();
@@ -527,7 +527,6 @@ public final class Interface extends javax.swing.JFrame {
                 Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
             }
         }).start();
-
     }//GEN-LAST:event_jButtonTraseuActionPerformed
 
     private void jButtonAdaugaClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdaugaClientActionPerformed
