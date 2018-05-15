@@ -34,7 +34,7 @@ public class Client {
         this.latitude = latitude;
         this.longitude = longitude;
     }
-    
+
     public String getNume() {
         return nume;
     }
@@ -59,12 +59,11 @@ public class Client {
         return longitude;
     }
 
-    
     @Override
     public String toString() {
         return nume;
     }
-    
+
     public void setCoordinates() throws UnsupportedEncodingException, ParseException {
         String adresa = URLEncoder.encode(this.adresa, "UTF-8");
         InputStream inputStream;

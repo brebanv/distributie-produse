@@ -40,6 +40,7 @@ public final class Interface extends javax.swing.JFrame {
     private ArrayList<Distribuitor> distribuitori = new ArrayList<>();
     private ArrayList<Client> clienti = new ArrayList<>();
     private ArrayList<Producator> producatori = new ArrayList<>();
+    private ArrayList<Distanta> distante = new ArrayList<>();
     private ImageIcon imageIcon;
 
     public Interface() {
@@ -133,6 +134,7 @@ public final class Interface extends javax.swing.JFrame {
         jLabelDurataText = new javax.swing.JLabel();
         jLabelDurata = new javax.swing.JLabel();
         jButtonStergeTot = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -360,6 +362,13 @@ public final class Interface extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -379,7 +388,9 @@ public final class Interface extends javax.swing.JFrame {
                                 .addGap(75, 75, 75)
                                 .addComponent(jButtonTraseu)
                                 .addGap(61, 61, 61)
-                                .addComponent(jButtonStergeTot))))
+                                .addComponent(jButtonStergeTot)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton1))))
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -411,7 +422,8 @@ public final class Interface extends javax.swing.JFrame {
                     .addComponent(jComboBoxDistribuitori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
                     .addComponent(jButtonTraseu)
-                    .addComponent(jButtonStergeTot))
+                    .addComponent(jButtonStergeTot)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTraseuOptim)
@@ -614,6 +626,11 @@ public final class Interface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonStergeTotActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ListaDistante d = new ListaDistante();
+        d.getDistances(producatori, distribuitori, clienti);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private void removeLoading() {
         jLabelLoading.setVisible(false);
     }
@@ -644,7 +661,13 @@ public final class Interface extends javax.swing.JFrame {
         jLabelDistantaText.setVisible(true);
         jLabelDurataText.setVisible(true);
     }
-
+    
+    private void getDistances(){
+        if(clienti.size() > 0 && producatori.size() > 0 && distribuitori.size() > 0){
+            return;
+        }
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -679,6 +702,7 @@ public final class Interface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAdaugaClient;
     private javax.swing.JButton jButtonAdaugaDistribuitor;
     private javax.swing.JButton jButtonAdaugaProducator;
