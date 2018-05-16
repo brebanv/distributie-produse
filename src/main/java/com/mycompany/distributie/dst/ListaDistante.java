@@ -26,7 +26,11 @@ public class ListaDistante {
 
     private DBConex conex;
     private ResultSet rs;
+    private ArrayList<DistantaPD> listDistancePD;
+    private ArrayList<DistantaDC> listDistanceDC;
     private ArrayList<Distanta> distante;
+    private ArrayList<Long> distantePD;
+    private ArrayList<Long> distanteDC;
 
     public ListaDistante() {
         conex = new DBConex();
@@ -91,11 +95,10 @@ public class ListaDistante {
         }
     }
 
-    public ArrayList<Distanta> getDistances(ArrayList<Producator> producatori, ArrayList<Distribuitor> distribuitori, ArrayList<Client> clienti) throws UnsupportedEncodingException {
+    public ArrayList<Distanta> getDistances(ArrayList<Producator> producatori, ArrayList<Distribuitor> distribuitori, ArrayList<Client> clienti) throws UnsupportedEncodingException, InterruptedException {
         String puncteProd = "";
         String puncteDist = "";
         String puncteClient = "";
-
         for (int i = 0; i < producatori.size(); i++) {
             puncteProd += producatori.get(i).getLatitude() + "," + producatori.get(i).getLongitude() + "|";
         }
@@ -108,35 +111,49 @@ public class ListaDistante {
         puncteProd = puncteProd.substring(0, puncteProd.length() - 1);
         puncteDist = puncteDist.substring(0, puncteDist.length() - 1);
         puncteClient = puncteClient.substring(0, puncteClient.length() - 1);
-        
+
         String p = puncteProd;
         String d = puncteDist;
         String c = puncteClient;
-        new Thread(() -> {
+        Thread getProdDist = new Thread(() -> {
             try {
-                doDistanceMatrixRequest(p, d);
+                distantePD = doDistanceMatrixRequest(p, d);
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(ListaDistante.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }).start();
-        new Thread(() -> {
+        });
+        getProdDist.start();
+        Thread getDistClient = new Thread(() -> {
             try {
-                doDistanceMatrixRequest(d, c);
+                distanteDC = doDistanceMatrixRequest(d, c);
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(ListaDistante.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }).start();
+        });
+        getDistClient.start();
+
+        getProdDist.join();
+        getDistClient.join();
+
+        for (int i = 0; i < distantePD.size(); i++) {
+            System.out.println(distantePD.get(i));
+        }
+        System.out.println("");
+        for (int i = 0; i < distanteDC.size(); i++) {
+            System.out.println(distanteDC.get(i));
+        }
         return null;
     }
 
-    private void doDistanceMatrixRequest(String origins, String destinations) throws UnsupportedEncodingException {
-
+    private ArrayList<Long> doDistanceMatrixRequest(String origins, String destinations) throws UnsupportedEncodingException {
+        ArrayList<Long> distances = new ArrayList<>();
         String basePath = "https://maps.googleapis.com/maps/api/distancematrix/json?";
         String googleKey = "&key=AIzaSyAmFZVeNDgmAcVNFA1OHwhPBM4lKTHZsSc";
         String region = "&region=ro";
         InputStream inputStream;
         String json = "";
         String url = basePath + "origins=" + URLEncoder.encode(origins, "UTF-8") + "&destinations=" + URLEncoder.encode(destinations, "UTF-8") + region + googleKey;
+        System.out.println(url);
         try {
             HttpClient client = new DefaultHttpClient();
             HttpPost post = new HttpPost(url);
@@ -160,27 +177,69 @@ public class ListaDistante {
         try {
             obj = parser.parse(json);
             JSONObject jb = (JSONObject) obj;
-            JSONArray routes = (JSONArray) jb.get("rows");
-            JSONObject jsonObject2 = (JSONObject) routes.get(0);
-            JSONArray legs = (JSONArray) jsonObject2.get("elements");
-            for (int i = 0; i < legs.size(); i++) {
-                JSONObject elements = (JSONObject) legs.get(i);
-                JSONObject distance = (JSONObject) elements.get("distance");
-                Long distantaPD = (Long) distance.get("value");
-
-                System.out.println(distantaPD);
-            }
-            JSONObject rows = (JSONObject) routes.get(1);
-            JSONArray rows2 = (JSONArray) rows.get("elements");
-            for (int i = 0; i < rows2.size(); i++) {
-                JSONObject elements = (JSONObject) rows2.get(i);
-                JSONObject distance = (JSONObject) elements.get("distance");
-                Long distantaPD = (Long) distance.get("value");
-
-                System.out.println(distantaPD);
+            JSONArray rowsRoot = (JSONArray) jb.get("rows");
+            for (int i = 0; i < rowsRoot.size(); i++) {
+                JSONObject rowsIndex = (JSONObject) rowsRoot.get(i);
+                JSONArray elements = (JSONArray) rowsIndex.get("elements");
+                for (int j = 0; j < elements.size(); j++) {
+                    JSONObject element = (JSONObject) elements.get(j);
+                    JSONObject distance = (JSONObject) element.get("distance");
+                    Long distantaPD = (Long) distance.get("value");
+                    distances.add(distantaPD);
+                }
             }
         } catch (ParseException ex) {
             System.out.println(ex);
         }
+        return distances;
     }
+
+    public Integer getFastestRoute(ArrayList<Producator> producatori, ArrayList<Distribuitor> distribuitori, ArrayList<Client> clienti, Integer idProducator, Integer idClient) throws InterruptedException {
+        listDistancePD = new ArrayList<>();
+        listDistanceDC = new ArrayList<>();
+        Integer waypointId = -1;
+
+        Thread pd = new Thread(() -> {
+            for (int i = 0; i < producatori.size(); i++) {
+                for (int j = 0; j < distribuitori.size(); j++) {
+                    DistantaPD d = new DistantaPD(i, j, distantePD.get(i + j));
+                    listDistancePD.add(d);
+                }
+            }
+        });
+        pd.start();
+        Thread dc = new Thread(() -> {
+            for (int i = 0; i < distribuitori.size(); i++) {
+                for (int j = 0; j < clienti.size(); j++) {
+                    DistantaDC d = new DistantaDC(i, j, distanteDC.get(i + j));
+                    listDistanceDC.add(d);
+                }
+            }
+        });
+        dc.start();
+        pd.join();
+        dc.join();
+
+        for (int i = 0; i < listDistancePD.size(); i++) {
+            System.out.println(listDistancePD.get(i).toString());
+        }
+        for (int i = 0; i < listDistanceDC.size(); i++) {
+            System.out.println(listDistanceDC.get(i).toString());
+        }
+
+        Long minDistance = Long.MAX_VALUE;
+        for (int i = 0; i < listDistancePD.size(); i++) {
+            for (int j = 0; j < listDistanceDC.size(); j++) {
+                if (listDistancePD.get(i).idProducator == idProducator && listDistanceDC.get(j).idClient == idClient) {
+                    if (listDistancePD.get(i).distance + listDistanceDC.get(j).distance < minDistance) {
+                        minDistance = listDistancePD.get(i).distance + listDistanceDC.get(j).distance;
+                        waypointId = listDistancePD.get(i).idDistribuitor;
+                    }
+                }
+            }
+        }
+        System.out.println(minDistance);
+        return waypointId;
+    }
+
 }

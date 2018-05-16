@@ -627,10 +627,25 @@ public final class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonStergeTotActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Point start = new Point(producatori.get(jComboBoxProducatori.getSelectedIndex()).getLatitude(), producatori.get(jComboBoxProducatori.getSelectedIndex()).getLongitude());
+        Point mijloc;
+        Point stop = new Point(clienti.get(jComboBoxClienti.getSelectedIndex()).getLatitude(), clienti.get(jComboBoxClienti.getSelectedIndex()).getLongitude());
         try {
             ListaDistante d = new ListaDistante();
             d.getDistances(producatori, distribuitori, clienti);
-        } catch (UnsupportedEncodingException ex) {
+            System.out.println(jComboBoxProducatori.getSelectedIndex() + ", " + jComboBoxClienti.getSelectedIndex());
+            Integer fastestDistribuitor = d.getFastestRoute(producatori, distribuitori, clienti, jComboBoxProducatori.getSelectedIndex(), jComboBoxClienti.getSelectedIndex());
+            
+            mijloc = new Point(distribuitori.get(fastestDistribuitor).getLatitude(), distribuitori.get(fastestDistribuitor).getLongitude());
+            new Thread(() -> {
+            try {
+                deseneazaRuta(start, mijloc, stop);
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }).start();
+            
+        } catch (UnsupportedEncodingException | InterruptedException ex) {
             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -665,13 +680,14 @@ public final class Interface extends javax.swing.JFrame {
         jLabelDistantaText.setVisible(true);
         jLabelDurataText.setVisible(true);
     }
-    
-    private void getDistances(){
-        if(clienti.size() > 0 && producatori.size() > 0 && distribuitori.size() > 0){
+
+    private void getDistances() {
+        if (clienti.size() > 0 && producatori.size() > 0 && distribuitori.size() > 0) {
             return;
         }
-        
+
     }
+
     /**
      * @param args the command line arguments
      */

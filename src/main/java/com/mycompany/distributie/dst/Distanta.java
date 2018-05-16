@@ -2,11 +2,11 @@ package com.mycompany.distributie.dst;
 
 public class Distanta {
 
-    private final Integer idProducator;
-    private final Integer idDistribuitor;
-    private final Integer idClient;
-    private final Integer ditantaPD;
-    private final Integer ditantaDC;
+    private Integer idProducator;
+    private Integer idDistribuitor;
+    private Integer idClient;
+    private Integer ditantaPD;
+    private Integer ditantaDC;
 
     public Distanta(Integer idProducator, Integer idDistribuitor, Integer idClient, Integer ditantaPD, Integer ditantaDC) {
         this.idProducator = idProducator;
@@ -16,6 +16,13 @@ public class Distanta {
         this.ditantaDC = ditantaDC;
     }
 
+    public Distanta(Integer idProducator, Integer idDistribuitor, Integer idClient) {
+        this.idProducator = idProducator;
+        this.idDistribuitor = idDistribuitor;
+        this.idClient = idClient;
+    }
+    
+    
     public Integer getIdProducator() {
         return idProducator;
     }
@@ -34,6 +41,31 @@ public class Distanta {
 
     public Integer getDitantaDC() {
         return ditantaDC;
+    }
+
+    public void setIdProducator(Integer idProducator) {
+        this.idProducator = idProducator;
+    }
+
+    public void setIdDistribuitor(Integer idDistribuitor) {
+        this.idDistribuitor = idDistribuitor;
+    }
+
+    public void setIdClient(Integer idClient) {
+        this.idClient = idClient;
+    }
+
+    public void setDitantaPD(Integer ditantaPD) {
+        this.ditantaPD = ditantaPD;
+    }
+
+    public void setDitantaDC(Integer ditantaDC) {
+        this.ditantaDC = ditantaDC;
+    }
+
+    @Override
+    public String toString() {
+        return "idProducator=" + idProducator + ", idDistribuitor=" + idDistribuitor + ", idClient=" + idClient + ", ditantaPD=" + ditantaPD + ", ditantaDC=" + ditantaDC;
     }
     
 }
