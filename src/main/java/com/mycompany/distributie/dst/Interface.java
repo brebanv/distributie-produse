@@ -627,8 +627,12 @@ public final class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonStergeTotActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ListaDistante d = new ListaDistante();
-        d.getDistances(producatori, distribuitori, clienti);
+        try {
+            ListaDistante d = new ListaDistante();
+            d.getDistances(producatori, distribuitori, clienti);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void removeLoading() {

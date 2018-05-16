@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -90,25 +92,51 @@ public class ListaDistante {
     }
 
     public ArrayList<Distanta> getDistances(ArrayList<Producator> producatori, ArrayList<Distribuitor> distribuitori, ArrayList<Client> clienti) throws UnsupportedEncodingException {
-        String origins = "";
-        String destinations = "";
-        InputStream inputStream;
-        String json = "";
+        String puncteProd = "";
+        String puncteDist = "";
+        String puncteClient = "";
+
+        for (int i = 0; i < producatori.size(); i++) {
+            puncteProd += producatori.get(i).getLatitude() + "," + producatori.get(i).getLongitude() + "|";
+        }
+        for (int i = 0; i < distribuitori.size(); i++) {
+            puncteDist += distribuitori.get(i).getLatitude() + "," + distribuitori.get(i).getLongitude() + "|";
+        }
+        for (int i = 0; i < clienti.size(); i++) {
+            puncteClient += clienti.get(i).getLatitude() + "," + clienti.get(i).getLongitude() + "|";
+        }
+        puncteProd = puncteProd.substring(0, puncteProd.length() - 1);
+        puncteDist = puncteDist.substring(0, puncteDist.length() - 1);
+        puncteClient = puncteClient.substring(0, puncteClient.length() - 1);
+        
+        String p = puncteProd;
+        String d = puncteDist;
+        String c = puncteClient;
+        new Thread(() -> {
+            try {
+                doDistanceMatrixRequest(p, d);
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(ListaDistante.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }).start();
+        new Thread(() -> {
+            try {
+                doDistanceMatrixRequest(d, c);
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(ListaDistante.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }).start();
+        return null;
+    }
+
+    private void doDistanceMatrixRequest(String origins, String destinations) throws UnsupportedEncodingException {
+
         String basePath = "https://maps.googleapis.com/maps/api/distancematrix/json?";
         String googleKey = "&key=AIzaSyAmFZVeNDgmAcVNFA1OHwhPBM4lKTHZsSc";
         String region = "&region=ro";
-
-        for (int i = 0; i < producatori.size(); i++) {
-            origins += producatori.get(i).getLatitude() + "," + producatori.get(i).getLongitude() + "|";
-        }
-        for (int i = 0; i < distribuitori.size(); i++) {
-            destinations += distribuitori.get(i).getLatitude() + "," + distribuitori.get(i).getLongitude() + "|";
-        }
-        
-        origins = origins.substring(0, origins.length() - 1);
-        destinations = destinations.substring(0, destinations.length() - 1);
+        InputStream inputStream;
+        String json = "";
         String url = basePath + "origins=" + URLEncoder.encode(origins, "UTF-8") + "&destinations=" + URLEncoder.encode(destinations, "UTF-8") + region + googleKey;
-
         try {
             HttpClient client = new DefaultHttpClient();
             HttpPost post = new HttpPost(url);
@@ -133,32 +161,26 @@ public class ListaDistante {
             obj = parser.parse(json);
             JSONObject jb = (JSONObject) obj;
             JSONArray routes = (JSONArray) jb.get("rows");
-            
-            
             JSONObject jsonObject2 = (JSONObject) routes.get(0);
             JSONArray legs = (JSONArray) jsonObject2.get("elements");
-
             for (int i = 0; i < legs.size(); i++) {
                 JSONObject elements = (JSONObject) legs.get(i);
                 JSONObject distance = (JSONObject) elements.get("distance");
                 Long distantaPD = (Long) distance.get("value");
+
                 System.out.println(distantaPD);
             }
-
-            
             JSONObject rows = (JSONObject) routes.get(1);
             JSONArray rows2 = (JSONArray) rows.get("elements");
-
             for (int i = 0; i < rows2.size(); i++) {
                 JSONObject elements = (JSONObject) rows2.get(i);
                 JSONObject distance = (JSONObject) elements.get("distance");
                 Long distantaPD = (Long) distance.get("value");
+
                 System.out.println(distantaPD);
             }
-
         } catch (ParseException ex) {
             System.out.println(ex);
         }
-        return null;
     }
 }
