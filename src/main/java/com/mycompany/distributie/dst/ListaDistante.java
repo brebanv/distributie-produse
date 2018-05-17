@@ -26,8 +26,8 @@ public class ListaDistante {
 
     private DBConex conex;
     private ResultSet rs;
-    private ArrayList<DistantaPD> listDistancePD;
-    private ArrayList<DistantaDC> listDistanceDC;
+    private ArrayList<DistantaPD> listDistancePDs;
+    private ArrayList<DistantaDC> listDistanceDCs;
     private ArrayList<Distanta> distante;
     private ArrayList<Long> distantePD;
     private ArrayList<Long> distanteDC;
@@ -115,6 +115,7 @@ public class ListaDistante {
         String p = puncteProd;
         String d = puncteDist;
         String c = puncteClient;
+
         Thread getProdDist = new Thread(() -> {
             try {
                 distantePD = doDistanceMatrixRequest(p, d);
@@ -123,6 +124,7 @@ public class ListaDistante {
             }
         });
         getProdDist.start();
+
         Thread getDistClient = new Thread(() -> {
             try {
                 distanteDC = doDistanceMatrixRequest(d, c);
@@ -195,15 +197,15 @@ public class ListaDistante {
     }
 
     public Integer getFastestRoute(ArrayList<Producator> producatori, ArrayList<Distribuitor> distribuitori, ArrayList<Client> clienti, Integer idProducator, Integer idClient) throws InterruptedException {
-        listDistancePD = new ArrayList<>();
-        listDistanceDC = new ArrayList<>();
+        listDistancePDs = new ArrayList<>();
+        listDistanceDCs = new ArrayList<>();
         Integer waypointId = -1;
 
         Thread pd = new Thread(() -> {
             for (int i = 0; i < producatori.size(); i++) {
                 for (int j = 0; j < distribuitori.size(); j++) {
                     DistantaPD d = new DistantaPD(i, j, distantePD.get(i + j));
-                    listDistancePD.add(d);
+                    listDistancePDs.add(d);
                 }
             }
         });
@@ -212,7 +214,7 @@ public class ListaDistante {
             for (int i = 0; i < distribuitori.size(); i++) {
                 for (int j = 0; j < clienti.size(); j++) {
                     DistantaDC d = new DistantaDC(i, j, distanteDC.get(i + j));
-                    listDistanceDC.add(d);
+                    listDistanceDCs.add(d);
                 }
             }
         });
@@ -220,24 +222,28 @@ public class ListaDistante {
         pd.join();
         dc.join();
 
-        for (int i = 0; i < listDistancePD.size(); i++) {
-            System.out.println(listDistancePD.get(i).toString());
-        }
-        for (int i = 0; i < listDistanceDC.size(); i++) {
-            System.out.println(listDistanceDC.get(i).toString());
-        }
-
         Long minDistance = Long.MAX_VALUE;
-        for (int i = 0; i < listDistancePD.size(); i++) {
-            for (int j = 0; j < listDistanceDC.size(); j++) {
-                if (listDistancePD.get(i).idProducator == idProducator && listDistanceDC.get(j).idClient == idClient) {
-                    if (listDistancePD.get(i).distance + listDistanceDC.get(j).distance < minDistance) {
-                        minDistance = listDistancePD.get(i).distance + listDistanceDC.get(j).distance;
-                        waypointId = listDistancePD.get(i).idDistribuitor;
-                    }
+        for (DistantaPD listDistancePD : listDistancePDs) {
+            if (listDistancePD.idProducator != idProducator) {
+                continue;
+            }
+            for (DistantaDC listDistanceDC : listDistanceDCs) {
+                if (listDistanceDC.idClient != idClient) {
+                    continue;
+                }
+                if(listDistanceDC.idDistribuitor != listDistancePD.idDistribuitor){
+                    continue;
+                }
+                long distance = listDistancePD.distance + listDistanceDC.distance;
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    waypointId = listDistanceDC.getIdDistribuitor();
                 }
             }
         }
+
+        Distribuitor fastestDistributor = distribuitori.get(waypointId);
+        System.out.println("Fastest Distributor " + fastestDistributor.toString());
         System.out.println(minDistance);
         return waypointId;
     }
