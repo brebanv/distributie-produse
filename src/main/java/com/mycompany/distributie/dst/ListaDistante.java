@@ -24,75 +24,12 @@ import org.json.simple.parser.ParseException;
 
 public class ListaDistante {
 
-    private DBConex conex;
-    private ResultSet rs;
     private ArrayList<DistantaPD> listDistancePDs;
     private ArrayList<DistantaDC> listDistanceDCs;
-    private ArrayList<Distanta> distante;
     private ArrayList<Long> distantePD;
     private ArrayList<Long> distanteDC;
 
     public ListaDistante() {
-        conex = new DBConex();
-    }
-
-    public ArrayList<Distanta> getDistante() {
-        return distante;
-    }
-
-    public void init() {
-        try {
-            conex = new DBConex();
-            try (Statement smt = conex.con.createStatement()) {
-                rs = smt.executeQuery("select * from DISTANTE");
-                distante = new ArrayList<>();
-
-                while (rs.next()) {
-                    distante.add(new Distanta(rs.getInt("IDPRODUCATOR"), rs.getInt("IDDISTRIBUITOR"), rs.getInt("IDCLIENT"), rs.getInt("DISTANTAPD"), rs.getInt("distantaDC")));
-                }
-                rs.close();
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-    }
-
-    public void creareDB() throws SQLException {
-        operatiiDB("create table DISTANTE"
-                + "(   ID INTEGER not null primary key GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),"
-                + "    IDPRODUCATOR INTEGER not null,"
-                + "	IDDISTRIBUITOR INTEGER not null,"
-                + "	IDCLIENT INTEGER not null,"
-                + "	DISTANTAPD INTEGER not null,"
-                + "	DISTANTADC INTEGER not null"
-                + ")");
-    }
-
-//    public void modificaDB(Distanta distanta, Integer id) throws SQLException {
-//        operatiiDB("update DISTRIBUITOR set NUME = '" + distanta.getNume() + "' where id=" + id);
-//        init();
-//    }
-    public void stergeDB(Integer id) throws SQLException {
-        operatiiDB("delete from DISTANTE where id=" + id);
-        init();
-    }
-
-    public void adaugaDB(Distanta distanta) throws SQLException {
-        operatiiDB("insert into DISTANTE(IDPRODUCATOR, IDDISTRIBUITOR, IDCLIENT, DISTANTAPD, DISTANTADC) "
-                + "values(" + distanta.getIdProducator() + ", " + distanta.getIdDistribuitor() + ", " + distanta.getIdClient() + ", " + distanta.getDitantaPD() + ", " + distanta.getDitantaDC() + ")");
-        init();
-    }
-
-    public void deleteAllRows() throws SQLException {
-        operatiiDB("delete from DISTANTE where id > 0");
-        init();
-    }
-
-    private void operatiiDB(String comandaSQL) throws SQLException {
-        try (Statement smt = conex.con.createStatement()) {
-            System.out.println(comandaSQL);
-            smt.executeUpdate(comandaSQL);
-        }
     }
 
     public ArrayList<Distanta> getDistances(ArrayList<Producator> producatori, ArrayList<Distribuitor> distribuitori, ArrayList<Client> clienti) throws UnsupportedEncodingException, InterruptedException {
@@ -202,21 +139,25 @@ public class ListaDistante {
         Integer waypointId = -1;
 
         Thread pd = new Thread(() -> {
+            int k = 0;
             for (int i = 0; i < producatori.size(); i++) {
                 for (int j = 0; j < distribuitori.size(); j++) {
-                    DistantaPD d = new DistantaPD(i, j, distantePD.get(i + j));
+                    DistantaPD d = new DistantaPD(i, j, distantePD.get(k++));
                     listDistancePDs.add(d);
                 }
             }
+            
         });
         pd.start();
         Thread dc = new Thread(() -> {
+            int k = 0;
             for (int i = 0; i < distribuitori.size(); i++) {
                 for (int j = 0; j < clienti.size(); j++) {
-                    DistantaDC d = new DistantaDC(i, j, distanteDC.get(i + j));
+                    DistantaDC d = new DistantaDC(i, j, distanteDC.get(k++));
                     listDistanceDCs.add(d);
                 }
             }
+            
         });
         dc.start();
         pd.join();
@@ -225,26 +166,12 @@ public class ListaDistante {
         for (int i = 0; i < listDistancePDs.size(); i++) {
             System.out.println(listDistancePDs.get(i).toString());
         }
+        System.out.println("");
         for (int i = 0; i < listDistanceDCs.size(); i++) {
             System.out.println(listDistanceDCs.get(i).toString());
         }
 
         Long minDistance = Long.MAX_VALUE;
-//        for (int i = 0; i < listDistancePDs.size(); i++) {
-//
-//            for (int j = 0; j < listDistanceDCs.size(); j++) {
-//
-//                if (listDistancePDs.get(i).idProducator == idProducator && listDistanceDCs.get(j).idClient == idClient) {
-//
-//                    if (listDistancePDs.get(i).distance + listDistanceDCs.get(j).distance < minDistance) {
-//
-//                        minDistance = listDistancePDs.get(i).distance + listDistanceDCs.get(j).distance;
-//                        waypointId = listDistanceDCs.get(j).idDistribuitor;
-//                    }
-//                }
-//            }
-//
-//        }
 
         for (DistantaPD listDistancePD : listDistancePDs) {
             if (listDistancePD.idProducator != idProducator) {

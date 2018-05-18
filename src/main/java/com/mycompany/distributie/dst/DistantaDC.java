@@ -26,7 +26,7 @@ public class DistantaDC {
 
     @Override
     public String toString() {
-        return "idDistribuitor=" + idDistribuitor + ", idClient=" + idClient + ", distance=" + distance;
+        return "idClient=" + idClient + ",     idDistribuitor=" + idDistribuitor + ", distance=" + distance;
     }
 
 }
