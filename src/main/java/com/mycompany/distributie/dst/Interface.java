@@ -385,12 +385,12 @@ public final class Interface extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(jComboBoxDistribuitori, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(75, 75, 75)
+                                .addGap(48, 48, 48)
                                 .addComponent(jButtonTraseu)
-                                .addGap(61, 61, 61)
-                                .addComponent(jButtonStergeTot)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton1))))
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1)
+                                .addGap(24, 24, 24)
+                                .addComponent(jButtonStergeTot))))
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -635,16 +635,16 @@ public final class Interface extends javax.swing.JFrame {
             d.getDistances(producatori, distribuitori, clienti);
             System.out.println(jComboBoxProducatori.getSelectedIndex() + ", " + jComboBoxClienti.getSelectedIndex());
             Integer fastestDistribuitor = d.getFastestRoute(producatori, distribuitori, clienti, jComboBoxProducatori.getSelectedIndex(), jComboBoxClienti.getSelectedIndex());
-            
+
             mijloc = new Point(distribuitori.get(fastestDistribuitor).getLatitude(), distribuitori.get(fastestDistribuitor).getLongitude());
             new Thread(() -> {
-            try {
-                deseneazaRuta(start, mijloc, stop);
-            } catch (MalformedURLException ex) {
-                Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }).start();
-            
+                try {
+                    deseneazaRuta(start, mijloc, stop);
+                } catch (MalformedURLException ex) {
+                    Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }).start();
+
         } catch (UnsupportedEncodingException | InterruptedException ex) {
             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
         }

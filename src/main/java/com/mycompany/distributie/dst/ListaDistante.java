@@ -6,9 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,7 +45,6 @@ public class ListaDistante {
         puncteProd = puncteProd.substring(0, puncteProd.length() - 1);
         puncteDist = puncteDist.substring(0, puncteDist.length() - 1);
         puncteClient = puncteClient.substring(0, puncteClient.length() - 1);
-
         String p = puncteProd;
         String d = puncteDist;
         String c = puncteClient;
@@ -70,17 +66,8 @@ public class ListaDistante {
             }
         });
         getDistClient.start();
-
         getProdDist.join();
         getDistClient.join();
-
-        for (int i = 0; i < distantePD.size(); i++) {
-            System.out.println(distantePD.get(i));
-        }
-        System.out.println("");
-        for (int i = 0; i < distanteDC.size(); i++) {
-            System.out.println(distanteDC.get(i));
-        }
         return null;
     }
 
@@ -110,7 +97,6 @@ public class ListaDistante {
             json = sbuild.toString();
         } catch (IOException | UnsupportedOperationException e) {
         }
-
         JSONParser parser = new JSONParser();
         Object obj;
         try {
@@ -137,7 +123,6 @@ public class ListaDistante {
         listDistancePDs = new ArrayList<>();
         listDistanceDCs = new ArrayList<>();
         Integer waypointId = -1;
-
         Thread pd = new Thread(() -> {
             int k = 0;
             for (int i = 0; i < producatori.size(); i++) {
@@ -146,7 +131,6 @@ public class ListaDistante {
                     listDistancePDs.add(d);
                 }
             }
-            
         });
         pd.start();
         Thread dc = new Thread(() -> {
@@ -157,53 +141,30 @@ public class ListaDistante {
                     listDistanceDCs.add(d);
                 }
             }
-            
         });
         dc.start();
         pd.join();
         dc.join();
 
-        for (int i = 0; i < listDistancePDs.size(); i++) {
-            System.out.println(listDistancePDs.get(i).toString());
-        }
-        System.out.println("");
-        for (int i = 0; i < listDistanceDCs.size(); i++) {
-            System.out.println(listDistanceDCs.get(i).toString());
-        }
-
         Long minDistance = Long.MAX_VALUE;
-
         for (DistantaPD listDistancePD : listDistancePDs) {
             if (listDistancePD.idProducator != idProducator) {
                 continue;
             }
-            
             for (DistantaDC listDistanceDC : listDistanceDCs) {
-                
                 if (listDistanceDC.idClient != idClient) {
                     continue;
                 }
-                
-                if(listDistancePD.idDistribuitor != listDistanceDC.idDistribuitor){
+                if (listDistancePD.idDistribuitor != listDistanceDC.idDistribuitor) {
                     continue;
                 }
-                
                 long distance = listDistancePD.distance + listDistanceDC.distance;
-                System.out.println(distance);
-                
                 if (distance < minDistance) {
                     minDistance = distance;
                     waypointId = listDistanceDC.getIdDistribuitor();
-                    System.out.println(listDistancePD.getIdDistribuitor());
-                    System.out.println(listDistanceDC.getIdDistribuitor());
-                    System.out.println(waypointId);
                 }
             }
         }
-        System.out.println(minDistance);
-        Distribuitor fastestDistributor = distribuitori.get(waypointId);
-        System.out.println("Fastest Distributor " + fastestDistributor.toString());
-        System.out.println(minDistance);
         return waypointId;
     }
 
