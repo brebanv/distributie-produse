@@ -222,26 +222,58 @@ public class ListaDistante {
         pd.join();
         dc.join();
 
+        for (int i = 0; i < listDistancePDs.size(); i++) {
+            System.out.println(listDistancePDs.get(i).toString());
+        }
+        for (int i = 0; i < listDistanceDCs.size(); i++) {
+            System.out.println(listDistanceDCs.get(i).toString());
+        }
+
         Long minDistance = Long.MAX_VALUE;
+//        for (int i = 0; i < listDistancePDs.size(); i++) {
+//
+//            for (int j = 0; j < listDistanceDCs.size(); j++) {
+//
+//                if (listDistancePDs.get(i).idProducator == idProducator && listDistanceDCs.get(j).idClient == idClient) {
+//
+//                    if (listDistancePDs.get(i).distance + listDistanceDCs.get(j).distance < minDistance) {
+//
+//                        minDistance = listDistancePDs.get(i).distance + listDistanceDCs.get(j).distance;
+//                        waypointId = listDistanceDCs.get(j).idDistribuitor;
+//                    }
+//                }
+//            }
+//
+//        }
+
         for (DistantaPD listDistancePD : listDistancePDs) {
             if (listDistancePD.idProducator != idProducator) {
                 continue;
             }
+            
             for (DistantaDC listDistanceDC : listDistanceDCs) {
+                
                 if (listDistanceDC.idClient != idClient) {
                     continue;
                 }
-                if(listDistanceDC.idDistribuitor != listDistancePD.idDistribuitor){
+                
+                if(listDistancePD.idDistribuitor != listDistanceDC.idDistribuitor){
                     continue;
                 }
+                
                 long distance = listDistancePD.distance + listDistanceDC.distance;
+                System.out.println(distance);
+                
                 if (distance < minDistance) {
                     minDistance = distance;
                     waypointId = listDistanceDC.getIdDistribuitor();
+                    System.out.println(listDistancePD.getIdDistribuitor());
+                    System.out.println(listDistanceDC.getIdDistribuitor());
+                    System.out.println(waypointId);
                 }
             }
         }
-
+        System.out.println(minDistance);
         Distribuitor fastestDistributor = distribuitori.get(waypointId);
         System.out.println("Fastest Distributor " + fastestDistributor.toString());
         System.out.println(minDistance);
