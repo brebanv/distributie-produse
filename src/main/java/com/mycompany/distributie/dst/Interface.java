@@ -55,6 +55,8 @@ public final class Interface extends javax.swing.JFrame {
         this.setVisible(true);
         this.setTitle("Your Distribution");
         initComboBox();
+        jRadioButtonRomana.setEnabled(true);
+
         BufferedImage img = null;
         try {
             img = ImageIO.read(new File("loading.png"));
@@ -97,26 +99,27 @@ public final class Interface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jTabbedPaneHarta = new javax.swing.JTabbedPane();
         jPanelMap = new javax.swing.JPanel();
         jLabelLoading = new javax.swing.JLabel();
         jPanelAdaugaProducator = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        jLabelAdaugaProducatorNume = new javax.swing.JLabel();
+        jLabelAdaugaProducatorAdresa = new javax.swing.JLabel();
         jTextFieldAdaugaProducatorNume = new javax.swing.JTextField();
         jTextFieldAdaugaProducatorAdresa = new javax.swing.JTextField();
         jButtonAdaugaProducator = new javax.swing.JButton();
         jLabelLoadingAdaugaProducator = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabelAdaugaDistribuitorNume = new javax.swing.JLabel();
+        jLabelAdaugaDistribuitorAdresa = new javax.swing.JLabel();
         jTextFieldAdaugaDistNume = new javax.swing.JTextField();
         jTextFieldAdaugaDistAdresa = new javax.swing.JTextField();
         jButtonAdaugaDistribuitor = new javax.swing.JButton();
         jLabelLoadingAdaugaDistribuitor = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        jPanelAdaugaClient = new javax.swing.JPanel();
+        jLabelAdaugaClientNume = new javax.swing.JLabel();
+        jLabelAdaugaClientAdresa = new javax.swing.JLabel();
         jTextFieldAdaugaClientNume = new javax.swing.JTextField();
         jTextFieldAdaugaClientAdresa = new javax.swing.JTextField();
         jButtonAdaugaClient = new javax.swing.JButton();
@@ -124,21 +127,23 @@ public final class Interface extends javax.swing.JFrame {
         jLabelDistanta = new javax.swing.JLabel();
         jButtonTraseu = new javax.swing.JButton();
         jLabelTraseuOptim = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        jLabelProducator = new javax.swing.JLabel();
         jComboBoxProducatori = new javax.swing.JComboBox<>();
-        jLabel10 = new javax.swing.JLabel();
+        jLabelDistribuitor = new javax.swing.JLabel();
         jComboBoxDistribuitori = new javax.swing.JComboBox<>();
-        jLabel11 = new javax.swing.JLabel();
+        jLabelClient = new javax.swing.JLabel();
         jComboBoxClienti = new javax.swing.JComboBox<>();
         jLabelDistantaText = new javax.swing.JLabel();
         jLabelDurataText = new javax.swing.JLabel();
         jLabelDurata = new javax.swing.JLabel();
         jButtonStergeTot = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jButtonTraseuOptim = new javax.swing.JButton();
+        jRadioButtonEngleza = new javax.swing.JRadioButton();
+        jRadioButtonRomana = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTabbedPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTabbedPaneHarta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jPanelMap.setPreferredSize(new java.awt.Dimension(800, 800));
 
@@ -158,14 +163,14 @@ public final class Interface extends javax.swing.JFrame {
             .addGroup(jPanelMapLayout.createSequentialGroup()
                 .addGap(119, 119, 119)
                 .addComponent(jLabelLoading, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Map", jPanelMap);
+        jTabbedPaneHarta.addTab("Map", jPanelMap);
 
-        jLabel7.setText("Nume");
+        jLabelAdaugaProducatorNume.setText("Nume");
 
-        jLabel8.setText("Adresa");
+        jLabelAdaugaProducatorAdresa.setText("Adresa");
 
         jButtonAdaugaProducator.setText("Adauga");
         jButtonAdaugaProducator.addActionListener(new java.awt.event.ActionListener() {
@@ -186,11 +191,11 @@ public final class Interface extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(jPanelAdaugaProducatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanelAdaugaProducatorLayout.createSequentialGroup()
-                                .addComponent(jLabel7)
+                                .addComponent(jLabelAdaugaProducatorNume)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextFieldAdaugaProducatorNume, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanelAdaugaProducatorLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
+                                .addComponent(jLabelAdaugaProducatorAdresa)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jTextFieldAdaugaProducatorAdresa))))
                     .addGroup(jPanelAdaugaProducatorLayout.createSequentialGroup()
@@ -205,24 +210,24 @@ public final class Interface extends javax.swing.JFrame {
             .addGroup(jPanelAdaugaProducatorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelAdaugaProducatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
+                    .addComponent(jLabelAdaugaProducatorNume)
                     .addComponent(jTextFieldAdaugaProducatorNume, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelAdaugaProducatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
+                    .addComponent(jLabelAdaugaProducatorAdresa)
                     .addComponent(jTextFieldAdaugaProducatorAdresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelAdaugaProducatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelLoadingAdaugaProducator, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonAdaugaProducator))
-                .addContainerGap(459, Short.MAX_VALUE))
+                .addContainerGap(457, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Adauga Producator", jPanelAdaugaProducator);
+        jTabbedPaneHarta.addTab("Adauga Producator", jPanelAdaugaProducator);
 
-        jLabel3.setText("Nume");
+        jLabelAdaugaDistribuitorNume.setText("Nume");
 
-        jLabel4.setText("Adresa");
+        jLabelAdaugaDistribuitorAdresa.setText("Adresa");
 
         jButtonAdaugaDistribuitor.setText("Adauga");
         jButtonAdaugaDistribuitor.addActionListener(new java.awt.event.ActionListener() {
@@ -243,11 +248,11 @@ public final class Interface extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
+                                .addComponent(jLabelAdaugaDistribuitorNume)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextFieldAdaugaDistNume, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
+                                .addComponent(jLabelAdaugaDistribuitorAdresa)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jTextFieldAdaugaDistAdresa))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -262,24 +267,24 @@ public final class Interface extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(jLabelAdaugaDistribuitorNume)
                     .addComponent(jTextFieldAdaugaDistNume, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(jLabelAdaugaDistribuitorAdresa)
                     .addComponent(jTextFieldAdaugaDistAdresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAdaugaDistribuitor)
                     .addComponent(jLabelLoadingAdaugaDistribuitor))
-                .addContainerGap(459, Short.MAX_VALUE))
+                .addContainerGap(457, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Adauga Distribuitor", jPanel1);
+        jTabbedPaneHarta.addTab("Adauga Distribuitor", jPanel1);
 
-        jLabel5.setText("Nume");
+        jLabelAdaugaClientNume.setText("Nume");
 
-        jLabel6.setText("Adresa");
+        jLabelAdaugaClientAdresa.setText("Adresa");
 
         jButtonAdaugaClient.setText("Adauga");
         jButtonAdaugaClient.addActionListener(new java.awt.event.ActionListener() {
@@ -290,49 +295,49 @@ public final class Interface extends javax.swing.JFrame {
 
         jLabelLoadingAdaugaClient.setText("Loading...");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelAdaugaClientLayout = new javax.swing.GroupLayout(jPanelAdaugaClient);
+        jPanelAdaugaClient.setLayout(jPanelAdaugaClientLayout);
+        jPanelAdaugaClientLayout.setHorizontalGroup(
+            jPanelAdaugaClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelAdaugaClientLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanelAdaugaClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelAdaugaClientLayout.createSequentialGroup()
+                        .addComponent(jLabelAdaugaClientAdresa)
+                        .addGroup(jPanelAdaugaClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelAdaugaClientLayout.createSequentialGroup()
                                 .addGap(54, 54, 54)
                                 .addComponent(jButtonAdaugaClient, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabelLoadingAdaugaClient, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanelAdaugaClientLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextFieldAdaugaClientAdresa))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
+                    .addGroup(jPanelAdaugaClientLayout.createSequentialGroup()
+                        .addComponent(jLabelAdaugaClientNume)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextFieldAdaugaClientNume, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(492, 492, 492))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        jPanelAdaugaClientLayout.setVerticalGroup(
+            jPanelAdaugaClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelAdaugaClientLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                .addGroup(jPanelAdaugaClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelAdaugaClientNume)
                     .addComponent(jTextFieldAdaugaClientNume, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
+                .addGroup(jPanelAdaugaClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelAdaugaClientAdresa)
                     .addComponent(jTextFieldAdaugaClientAdresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanelAdaugaClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAdaugaClient)
                     .addComponent(jLabelLoadingAdaugaClient, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(456, Short.MAX_VALUE))
+                .addContainerGap(454, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Adauga Client", jPanel2);
+        jTabbedPaneHarta.addTab("Adauga Client", jPanelAdaugaClient);
 
         jLabelDistanta.setText("  ");
 
@@ -345,11 +350,11 @@ public final class Interface extends javax.swing.JFrame {
 
         jLabelTraseuOptim.setText("  ");
 
-        jLabel12.setText("Producator");
+        jLabelProducator.setText("Producator");
 
-        jLabel10.setText("Distribuitor");
+        jLabelDistribuitor.setText("Distribuitor");
 
-        jLabel11.setText("Client");
+        jLabelClient.setText("Client");
 
         jLabelDistantaText.setText("Distanta:");
 
@@ -362,10 +367,26 @@ public final class Interface extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Traseu Optim");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonTraseuOptim.setText("Traseu Optim");
+        jButtonTraseuOptim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonTraseuOptimActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButtonEngleza);
+        jRadioButtonEngleza.setText("Engleza");
+        jRadioButtonEngleza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonEnglezaActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButtonRomana);
+        jRadioButtonRomana.setText("Romana");
+        jRadioButtonRomana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonRomanaActionPerformed(evt);
             }
         });
 
@@ -377,58 +398,69 @@ public final class Interface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(59, 59, 59)
+                                .addComponent(jLabelDistantaText)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabelDistanta, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelDurataText)
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabelDurata, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabelProducator)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBoxClienti, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxProducatori, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jRadioButtonRomana)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButtonEngleza)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel11))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelTraseuOptim, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jComboBoxDistribuitori, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(48, 48, 48)
-                                .addComponent(jButtonTraseu)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1)
-                                .addGap(24, 24, 24)
-                                .addComponent(jButtonStergeTot))))
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(59, 59, 59)
-                            .addComponent(jLabelDistantaText)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jLabelDistanta, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabelDurataText)
-                            .addGap(10, 10, 10)
-                            .addComponent(jLabelDurata, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel12)
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jComboBoxClienti, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jComboBoxProducatori, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelDistribuitor)
+                                    .addComponent(jLabelClient))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelTraseuOptim, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jComboBoxDistribuitori, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(48, 48, 48)
+                                        .addComponent(jButtonTraseu)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButtonTraseuOptim, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButtonStergeTot))))
+                            .addComponent(jTabbedPaneHarta, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxProducatori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBoxProducatori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jRadioButtonEngleza)
+                        .addComponent(jRadioButtonRomana))
+                    .addComponent(jLabelProducator, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxDistribuitori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10)
+                    .addComponent(jLabelDistribuitor)
                     .addComponent(jButtonTraseu)
                     .addComponent(jButtonStergeTot)
-                    .addComponent(jButton1))
+                    .addComponent(jButtonTraseuOptim))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTraseuOptim)
                     .addComponent(jComboBoxClienti, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11))
+                    .addComponent(jLabelClient))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelDurata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -437,7 +469,7 @@ public final class Interface extends javax.swing.JFrame {
                         .addComponent(jLabelDistantaText)
                         .addComponent(jLabelDurataText)))
                 .addGap(4, 4, 4)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)
+                .addComponent(jTabbedPaneHarta, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -539,6 +571,7 @@ public final class Interface extends javax.swing.JFrame {
                 Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
             }
         }).start();
+
     }//GEN-LAST:event_jButtonTraseuActionPerformed
 
     private void jButtonAdaugaClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdaugaClientActionPerformed
@@ -626,7 +659,7 @@ public final class Interface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonStergeTotActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonTraseuOptimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTraseuOptimActionPerformed
         Point start = new Point(producatori.get(jComboBoxProducatori.getSelectedIndex()).getLatitude(), producatori.get(jComboBoxProducatori.getSelectedIndex()).getLongitude());
         Point mijloc;
         Point stop = new Point(clienti.get(jComboBoxClienti.getSelectedIndex()).getLatitude(), clienti.get(jComboBoxClienti.getSelectedIndex()).getLongitude());
@@ -648,7 +681,44 @@ public final class Interface extends javax.swing.JFrame {
         } catch (UnsupportedEncodingException | InterruptedException ex) {
             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonTraseuOptimActionPerformed
+
+    private void jRadioButtonEnglezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEnglezaActionPerformed
+        Language language = new Language("Engleza");
+        setLanguage(language);
+    }//GEN-LAST:event_jRadioButtonEnglezaActionPerformed
+
+    private void jRadioButtonRomanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonRomanaActionPerformed
+        Language language = new Language();
+        setLanguage(language);
+    }//GEN-LAST:event_jRadioButtonRomanaActionPerformed
+
+    private void setLanguage(Language language) {
+        jLabelProducator.setText(language.getjLabelProDucator());
+        jLabelDistribuitor.setText(language.getjLabelDistribuitor());
+        jLabelClient.setText(language.getjLabelClient());
+        jLabelDistanta.setText(language.getjLabelDistanta());
+        jLabelDurata.setText(language.getjLabelDurata());
+        jTabbedPaneHarta.setTitleAt(0, language.getjTabbedPaneHarta());
+        jTabbedPaneHarta.setTitleAt(1, language.getjTabbedPaneAdaugaProducator());
+        jTabbedPaneHarta.setTitleAt(2, language.getjTabbedPaneAdaugaDistribuitor());
+        jTabbedPaneHarta.setTitleAt(3, language.getjTabbedPaneAdaugaClient());
+        jLabelLoadingAdaugaClient.setText(language.getjLabelLoading());
+        jLabelLoadingAdaugaDistribuitor.setText(language.getjLabelLoading());
+        jLabelLoadingAdaugaProducator.setText(language.getjLabelLoading());
+        jButtonAdaugaClient.setText(language.getjButtonAdauga());
+        jButtonAdaugaDistribuitor.setText(language.getjButtonAdauga());
+        jButtonAdaugaProducator.setText(language.getjButtonAdauga());
+        jButtonTraseu.setText(language.getjButtonTraseu());
+        jButtonTraseuOptim.setText(language.getjButtonTraseuOptim());
+        jLabelAdaugaClientNume.setText(language.getjLabelAdaugaNume());
+        jLabelAdaugaClientAdresa.setText(language.getjLabelAdaugaAdresa());
+        jLabelAdaugaDistribuitorNume.setText(language.getjLabelAdaugaNume());
+        jLabelAdaugaDistribuitorAdresa.setText(language.getjLabelAdaugaAdresa());
+        jLabelAdaugaProducatorNume.setText(language.getjLabelAdaugaNume());
+        jLabelAdaugaProducatorAdresa.setText(language.getjLabelAdaugaAdresa());
+        
+    }
 
     private void removeLoading() {
         jLabelLoading.setVisible(false);
@@ -722,38 +792,41 @@ public final class Interface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButtonAdaugaClient;
     private javax.swing.JButton jButtonAdaugaDistribuitor;
     private javax.swing.JButton jButtonAdaugaProducator;
     private javax.swing.JButton jButtonStergeTot;
     private javax.swing.JButton jButtonTraseu;
+    private javax.swing.JButton jButtonTraseuOptim;
     private javax.swing.JComboBox<Client> jComboBoxClienti;
     private javax.swing.JComboBox<Distribuitor> jComboBoxDistribuitori;
     private javax.swing.JComboBox<Producator> jComboBoxProducatori;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabelAdaugaClientAdresa;
+    private javax.swing.JLabel jLabelAdaugaClientNume;
+    private javax.swing.JLabel jLabelAdaugaDistribuitorAdresa;
+    private javax.swing.JLabel jLabelAdaugaDistribuitorNume;
+    private javax.swing.JLabel jLabelAdaugaProducatorAdresa;
+    private javax.swing.JLabel jLabelAdaugaProducatorNume;
+    private javax.swing.JLabel jLabelClient;
     private javax.swing.JLabel jLabelDistanta;
     private javax.swing.JLabel jLabelDistantaText;
+    private javax.swing.JLabel jLabelDistribuitor;
     private javax.swing.JLabel jLabelDurata;
     private javax.swing.JLabel jLabelDurataText;
     private javax.swing.JLabel jLabelLoading;
     private javax.swing.JLabel jLabelLoadingAdaugaClient;
     private javax.swing.JLabel jLabelLoadingAdaugaDistribuitor;
     private javax.swing.JLabel jLabelLoadingAdaugaProducator;
+    private javax.swing.JLabel jLabelProducator;
     private javax.swing.JLabel jLabelTraseuOptim;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanelAdaugaClient;
     private javax.swing.JPanel jPanelAdaugaProducator;
     private javax.swing.JPanel jPanelMap;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JRadioButton jRadioButtonEngleza;
+    private javax.swing.JRadioButton jRadioButtonRomana;
+    private javax.swing.JTabbedPane jTabbedPaneHarta;
     private javax.swing.JTextField jTextFieldAdaugaClientAdresa;
     private javax.swing.JTextField jTextFieldAdaugaClientNume;
     private javax.swing.JTextField jTextFieldAdaugaDistAdresa;
