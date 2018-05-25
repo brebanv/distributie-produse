@@ -33,6 +33,8 @@ import org.jxmapviewer.input.CenterMapListener;
 import org.jxmapviewer.input.PanKeyListener;
 import org.jxmapviewer.input.PanMouseInputListener;
 import org.jxmapviewer.input.ZoomMouseWheelListenerCursor;
+import se.walkercrou.places.GooglePlaces;
+import se.walkercrou.places.Prediction;
 
 public final class Interface extends javax.swing.JFrame {
 
@@ -41,6 +43,7 @@ public final class Interface extends javax.swing.JFrame {
     private ArrayList<Client> clienti = new ArrayList<>();
     private ArrayList<Producator> producatori = new ArrayList<>();
     private ArrayList<Distanta> distante = new ArrayList<>();
+    GooglePlaces client = new GooglePlaces("AIzaSyAmFZVeNDgmAcVNFA1OHwhPBM4lKTHZsSc");
     private ImageIcon imageIcon;
 
     public Interface() {
@@ -49,6 +52,8 @@ public final class Interface extends javax.swing.JFrame {
     }
 
     private void initInterface() {
+        new Test(this, jTextFieldAdaugaProducatorAdresa);
+        
         this.setResizable(false);
         this.setLayout(null);
         this.setLocationRelativeTo(null);
@@ -77,6 +82,8 @@ public final class Interface extends javax.swing.JFrame {
         DefaultTileFactory tileFactory = new DefaultTileFactory(info);
         mapViewer.setTileFactory(tileFactory);
         addMouseInteractions();
+        
+        
     }
 
     private void initComboBox() {
@@ -163,7 +170,7 @@ public final class Interface extends javax.swing.JFrame {
             .addGroup(jPanelMapLayout.createSequentialGroup()
                 .addGap(119, 119, 119)
                 .addComponent(jLabelLoading, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
 
         jTabbedPaneHarta.addTab("Map", jPanelMap);
@@ -220,7 +227,7 @@ public final class Interface extends javax.swing.JFrame {
                 .addGroup(jPanelAdaugaProducatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelLoadingAdaugaProducator, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonAdaugaProducator))
-                .addContainerGap(457, Short.MAX_VALUE))
+                .addContainerGap(448, Short.MAX_VALUE))
         );
 
         jTabbedPaneHarta.addTab("Adauga Producator", jPanelAdaugaProducator);
@@ -277,7 +284,7 @@ public final class Interface extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAdaugaDistribuitor)
                     .addComponent(jLabelLoadingAdaugaDistribuitor))
-                .addContainerGap(457, Short.MAX_VALUE))
+                .addContainerGap(448, Short.MAX_VALUE))
         );
 
         jTabbedPaneHarta.addTab("Adauga Distribuitor", jPanel1);
@@ -334,7 +341,7 @@ public final class Interface extends javax.swing.JFrame {
                 .addGroup(jPanelAdaugaClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAdaugaClient)
                     .addComponent(jLabelLoadingAdaugaClient, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(454, Short.MAX_VALUE))
+                .addContainerGap(445, Short.MAX_VALUE))
         );
 
         jTabbedPaneHarta.addTab("Adauga Client", jPanelAdaugaClient);
@@ -426,16 +433,16 @@ public final class Interface extends javax.swing.JFrame {
                                     .addComponent(jLabelDistribuitor)
                                     .addComponent(jLabelClient))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelTraseuOptim, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
-                                        .addComponent(jComboBoxDistribuitori, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(48, 48, 48)
-                                        .addComponent(jButtonTraseu)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButtonTraseuOptim, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButtonStergeTot))))
+                                        .addComponent(jComboBoxDistribuitori, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabelTraseuOptim, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(48, 48, 48)
+                                .addComponent(jButtonTraseu)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonTraseuOptim, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonStergeTot))
                             .addComponent(jTabbedPaneHarta, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
@@ -456,12 +463,12 @@ public final class Interface extends javax.swing.JFrame {
                     .addComponent(jButtonTraseu)
                     .addComponent(jButtonStergeTot)
                     .addComponent(jButtonTraseuOptim))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTraseuOptim)
                     .addComponent(jComboBoxClienti, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelClient))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelDurata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -469,7 +476,7 @@ public final class Interface extends javax.swing.JFrame {
                         .addComponent(jLabelDistantaText)
                         .addComponent(jLabelDurataText)))
                 .addGap(4, 4, 4)
-                .addComponent(jTabbedPaneHarta, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
+                .addComponent(jTabbedPaneHarta, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
