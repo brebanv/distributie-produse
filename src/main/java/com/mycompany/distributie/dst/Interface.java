@@ -1,8 +1,18 @@
 package com.mycompany.distributie.dst;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -25,11 +35,9 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-import javax.swing.JList;
-import javax.swing.KeyStroke;
-import javax.swing.ListModel;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 import javax.swing.event.MouseInputListener;
 import org.json.simple.parser.ParseException;
 
@@ -52,6 +60,7 @@ public final class Interface extends javax.swing.JFrame {
     public Interface() {
         initComponents();
         initInterface();
+        initMap();
     }
 
     private void initInterface() {
@@ -62,7 +71,6 @@ public final class Interface extends javax.swing.JFrame {
         this.setTitle("Your Distribution");
         initComboBox();
         jRadioButtonRomana.setSelected(true);
-
         BufferedImage img = null;
         try {
             img = ImageIO.read(new File("loading.png"));
@@ -84,7 +92,17 @@ public final class Interface extends javax.swing.JFrame {
         mapViewer.setTileFactory(tileFactory);
         addMouseInteractions();
     }
-
+    
+    private void initMap(){
+        mapViewer.removeAll();
+        mapViewer.setBounds(0, 0, 800, 600);
+        mapViewer.setCenterPosition(new GeoPosition(47.656683, 23.579543));
+        mapViewer.setZoom(10);
+        jPanelMap.add(mapViewer);
+        jPanelMap.setSize(600, 800);
+        
+    }
+    
     private void initComboBox() {
         ListaProducatori listaProducatori = new ListaProducatori();
         listaProducatori.init();
@@ -135,7 +153,6 @@ public final class Interface extends javax.swing.JFrame {
         jLabelSugestiiAdresaClient = new javax.swing.JLabel();
         jLabelDistanta = new javax.swing.JLabel();
         jButtonTraseu = new javax.swing.JButton();
-        jLabelTraseuOptim = new javax.swing.JLabel();
         jLabelProducator = new javax.swing.JLabel();
         jComboBoxProducatori = new javax.swing.JComboBox<>();
         jLabelDistribuitor = new javax.swing.JLabel();
@@ -149,11 +166,14 @@ public final class Interface extends javax.swing.JFrame {
         jButtonTraseuOptim = new javax.swing.JButton();
         jRadioButtonEngleza = new javax.swing.JRadioButton();
         jRadioButtonRomana = new javax.swing.JRadioButton();
+        jButtonExportRaport = new javax.swing.JButton();
+        jButtonCautaInGoogleMaps = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTabbedPaneHarta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        jPanelMap.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
         jPanelMap.setPreferredSize(new java.awt.Dimension(800, 800));
 
         jLabelLoading.setText(" ");
@@ -172,10 +192,10 @@ public final class Interface extends javax.swing.JFrame {
             .addGroup(jPanelMapLayout.createSequentialGroup()
                 .addGap(119, 119, 119)
                 .addComponent(jLabelLoading, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
 
-        jTabbedPaneHarta.addTab("Map", jPanelMap);
+        jTabbedPaneHarta.addTab("Harta", jPanelMap);
 
         jLabelAdaugaProducatorNume.setText("Nume");
 
@@ -242,7 +262,7 @@ public final class Interface extends javax.swing.JFrame {
                     .addGroup(jPanelAdaugaProducatorLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jLabelSugestiiAdresaProd, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(437, Short.MAX_VALUE))
+                .addContainerGap(436, Short.MAX_VALUE))
         );
 
         jTabbedPaneHarta.addTab("Adauga Producator", jPanelAdaugaProducator);
@@ -312,7 +332,7 @@ public final class Interface extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(5, 5, 5)
                         .addComponent(jLabelSugestiiAdresaDist, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(426, Short.MAX_VALUE))
+                .addContainerGap(425, Short.MAX_VALUE))
         );
 
         jTabbedPaneHarta.addTab("Adauga Distribuitor", jPanel1);
@@ -320,6 +340,12 @@ public final class Interface extends javax.swing.JFrame {
         jLabelAdaugaClientNume.setText("Nume");
 
         jLabelAdaugaClientAdresa.setText("Adresa");
+
+        jTextFieldAdaugaClientAdresa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldAdaugaClientAdresaKeyPressed(evt);
+            }
+        });
 
         jButtonAdaugaClient.setText("Adauga");
         jButtonAdaugaClient.addActionListener(new java.awt.event.ActionListener() {
@@ -374,7 +400,7 @@ public final class Interface extends javax.swing.JFrame {
                             .addComponent(jButtonAdaugaClient)
                             .addComponent(jLabelLoadingAdaugaClient, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabelSugestiiAdresaClient, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(415, Short.MAX_VALUE))
+                .addContainerGap(414, Short.MAX_VALUE))
         );
 
         jTabbedPaneHarta.addTab("Adauga Client", jPanelAdaugaClient);
@@ -387,8 +413,6 @@ public final class Interface extends javax.swing.JFrame {
                 jButtonTraseuActionPerformed(evt);
             }
         });
-
-        jLabelTraseuOptim.setText("  ");
 
         jLabelProducator.setText("Producator");
 
@@ -430,6 +454,20 @@ public final class Interface extends javax.swing.JFrame {
             }
         });
 
+        jButtonExportRaport.setText("Export Raport");
+        jButtonExportRaport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExportRaportActionPerformed(evt);
+            }
+        });
+
+        jButtonCautaInGoogleMaps.setText("Deschide Google Maps Web");
+        jButtonCautaInGoogleMaps.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCautaInGoogleMapsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -438,46 +476,50 @@ public final class Interface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(59, 59, 59)
-                                .addComponent(jLabelDistantaText)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabelDistanta, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelDurataText)
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabelDurata, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabelProducator)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBoxClienti, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBoxProducatori, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jRadioButtonRomana)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButtonEngleza)
-                        .addContainerGap())
+                        .addComponent(jTabbedPaneHarta, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGap(59, 59, 59)
+                                    .addComponent(jLabelDistantaText)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabelDistanta, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabelDurataText)
+                                    .addGap(10, 10, 10)
+                                    .addComponent(jLabelDurata, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabelProducator)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jComboBoxProducatori, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(1, 1, 1)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelDistribuitor)
                                     .addComponent(jLabelClient))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jComboBoxDistribuitori, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabelTraseuOptim, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(48, 48, 48)
-                                .addComponent(jButtonTraseu)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButtonTraseuOptim, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonStergeTot))
-                            .addComponent(jTabbedPaneHarta, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBoxDistribuitori, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxClienti, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(48, 48, 48)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButtonTraseu)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButtonTraseuOptim, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButtonStergeTot))
+                                    .addComponent(jButtonCautaInGoogleMaps))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jRadioButtonRomana)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jRadioButtonEngleza))
+                            .addComponent(jButtonExportRaport, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -489,27 +531,34 @@ public final class Interface extends javax.swing.JFrame {
                         .addComponent(jRadioButtonEngleza)
                         .addComponent(jRadioButtonRomana))
                     .addComponent(jLabelProducator, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxDistribuitori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelDistribuitor)
                     .addComponent(jButtonTraseu)
                     .addComponent(jButtonStergeTot)
                     .addComponent(jButtonTraseuOptim))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelTraseuOptim)
-                    .addComponent(jComboBoxClienti, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelClient))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelDurata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabelDistanta)
-                        .addComponent(jLabelDistantaText)
-                        .addComponent(jLabelDurataText)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jComboBoxClienti, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelClient))
+                                .addGap(0, 28, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonCautaInGoogleMaps)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelDistanta)
+                            .addComponent(jLabelDistantaText)
+                            .addComponent(jLabelDurataText)
+                            .addComponent(jLabelDurata, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonExportRaport)))
                 .addGap(4, 4, 4)
-                .addComponent(jTabbedPaneHarta, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+                .addComponent(jTabbedPaneHarta, javax.swing.GroupLayout.DEFAULT_SIZE, 577, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -736,20 +785,65 @@ public final class Interface extends javax.swing.JFrame {
     private void jTextFieldAdaugaProducatorAdresaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldAdaugaProducatorAdresaKeyPressed
         if (jTextFieldAdaugaProducatorAdresa.getText() != "") {
             new Thread(() -> {
-                jLabelSugestiiAdresaProd.removeAll();
-                GooglePlaces client = new GooglePlaces("AIzaSyAmFZVeNDgmAcVNFA1OHwhPBM4lKTHZsSc");
-                List<Prediction> predictions = client.getPlacePredictions(jTextFieldAdaugaProducatorAdresa.getText());
-                if (predictions.get(0) != null && predictions.get(1) != null && predictions.get(2) != null) {
-                    jLabelSugestiiAdresaProd.setText("<html>" + removeFirstAndLast(predictions.get(0).toString()) + "<br>" + removeFirstAndLast(predictions.get(1).toString()) + "<br>" + removeFirstAndLast(predictions.get(2).toString()) + "</html>");
-                }
-
+                cautaSugestii(jTextFieldAdaugaProducatorAdresa, jLabelSugestiiAdresaProd);
             }).start();
         }
     }//GEN-LAST:event_jTextFieldAdaugaProducatorAdresaKeyPressed
-
+    
+    void cautaSugestii(JTextField jTextField, JLabel jLabel){
+        jLabel.removeAll();
+                GooglePlaces client = new GooglePlaces("AIzaSyAmFZVeNDgmAcVNFA1OHwhPBM4lKTHZsSc");
+                List<Prediction> predictions = client.getPlacePredictions(jTextField.getText());
+                if (predictions.get(0) != null && predictions.get(1) != null && predictions.get(2) != null) {
+                    jLabel.setText("<html>" + removeFirstAndLast(predictions.get(0).toString()) + "<br>" + removeFirstAndLast(predictions.get(1).toString()) + "<br>" + removeFirstAndLast(predictions.get(2).toString()) + "</html>");
+                }
+    }      
     private void jTextFieldAdaugaDistAdresaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldAdaugaDistAdresaKeyPressed
-        // TODO add your handling code here:
+        if (jTextFieldAdaugaDistAdresa.getText() != "") {
+            new Thread(() -> {
+                cautaSugestii(jTextFieldAdaugaDistAdresa, jLabelSugestiiAdresaDist);
+            }).start();
+        }
     }//GEN-LAST:event_jTextFieldAdaugaDistAdresaKeyPressed
+
+    private void jButtonExportRaportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExportRaportActionPerformed
+        try {
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream("Raport Traseu.pdf"));
+            
+            document.open();
+            Font titleFont = FontFactory.getFont(FontFactory.COURIER, 24, BaseColor.BLACK);
+            Font font = FontFactory.getFont(FontFactory.COURIER, 18, BaseColor.BLACK);
+            Chunk titlu = new Chunk("           Raport Traseu", titleFont);
+           
+            
+            document.add(titlu);
+            
+            
+            document.close();
+        } catch (DocumentException ex) {
+            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonExportRaportActionPerformed
+
+    private void jButtonCautaInGoogleMapsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCautaInGoogleMapsActionPerformed
+        String url = "https://www.google.ro/maps";
+        try {
+            java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+        } catch (IOException ex) {
+            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonCautaInGoogleMapsActionPerformed
+
+    private void jTextFieldAdaugaClientAdresaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldAdaugaClientAdresaKeyPressed
+        if (jTextFieldAdaugaClientAdresa.getText() != "") {
+            new Thread(() -> {
+                cautaSugestii(jTextFieldAdaugaClientAdresa, jLabelSugestiiAdresaClient);
+            }).start();
+        }
+    }//GEN-LAST:event_jTextFieldAdaugaClientAdresaKeyPressed
 
     private String removeFirstAndLast(String text) {
         return text.substring(1, text.length() - 1);
@@ -858,6 +952,8 @@ public final class Interface extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAdaugaClient;
     private javax.swing.JButton jButtonAdaugaDistribuitor;
     private javax.swing.JButton jButtonAdaugaProducator;
+    private javax.swing.JButton jButtonCautaInGoogleMaps;
+    private javax.swing.JButton jButtonExportRaport;
     private javax.swing.JButton jButtonStergeTot;
     private javax.swing.JButton jButtonTraseu;
     private javax.swing.JButton jButtonTraseuOptim;
@@ -884,7 +980,6 @@ public final class Interface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelSugestiiAdresaClient;
     private javax.swing.JLabel jLabelSugestiiAdresaDist;
     private javax.swing.JLabel jLabelSugestiiAdresaProd;
-    private javax.swing.JLabel jLabelTraseuOptim;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelAdaugaClient;
     private javax.swing.JPanel jPanelAdaugaProducator;
