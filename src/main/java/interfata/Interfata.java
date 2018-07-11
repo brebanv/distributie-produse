@@ -544,23 +544,27 @@ public final class Interfata extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButtonTraseu)
-                                    .addComponent(jButtonTraseuOptim))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButtonCautaInGoogleMaps)
-                                    .addComponent(jButtonStergeTot))
-                                .addGap(0, 15, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabelDistribuitor)
-                                    .addComponent(jComboBoxDistribuitori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jComboBoxClienti, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabelClient))))
+                                    .addComponent(jLabelClient))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jButtonTraseu)
+                                            .addComponent(jButtonTraseuOptim))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jButtonCautaInGoogleMaps)
+                                            .addComponent(jButtonStergeTot)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(15, 15, 15)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabelDistribuitor)
+                                            .addComponent(jComboBoxDistribuitori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(0, 15, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabelDistanta)
@@ -791,7 +795,7 @@ public final class Interfata extends javax.swing.JFrame {
 
     void cautaSugestii(JTextField jTextField, JLabel jLabel) throws Exception {
         jLabel.removeAll();
-        GooglePlaces client = new GooglePlaces("AIzaSyAmFZVeNDgmAcVNFA1OHwhPBM4lKTHZsSc");
+        GooglePlaces client = new GooglePlaces("AIzaSyBrAq87PDEZU-F9f_YJ-DV1Vm7P6UQQw-0");
         List<Prediction> predictions = client.getPlacePredictions(jTextField.getText());
         if (predictions.get(0) != null && predictions.get(1) != null && predictions.get(2) != null) {
             jLabel.setText("<html>" + removeFirstAndLast(predictions.get(0).toString()) + "<br>" + removeFirstAndLast(predictions.get(1).toString()) + "<br>" + removeFirstAndLast(predictions.get(2).toString()) + "</html>");
@@ -803,6 +807,7 @@ public final class Interfata extends javax.swing.JFrame {
                 try {
                     cautaSugestii(jTextFieldAdaugaDistAdresa, jLabelSugestiiAdresaDist);
                 } catch (Exception ex) {
+                    System.out.println(ex);
                 }
             }).start();
         }
