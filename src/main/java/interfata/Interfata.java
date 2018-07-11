@@ -211,7 +211,7 @@ public final class Interfata extends javax.swing.JFrame {
             .addGroup(jPanelMapLayout.createSequentialGroup()
                 .addGap(119, 119, 119)
                 .addComponent(jLabelLoading, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
 
         jTabbedPaneHarta.addTab("Harta", jPanelMap);
@@ -235,7 +235,7 @@ public final class Interfata extends javax.swing.JFrame {
             }
         });
 
-        jLabelLoadingAdaugaProducator.setText("Loading ...");
+        jLabelLoadingAdaugaProducator.setText("Se încarcă..");
 
         javax.swing.GroupLayout jPanelAdaugaProducatorLayout = new javax.swing.GroupLayout(jPanelAdaugaProducator);
         jPanelAdaugaProducator.setLayout(jPanelAdaugaProducatorLayout);
@@ -280,10 +280,10 @@ public final class Interfata extends javax.swing.JFrame {
                             .addComponent(jButtonAdaugaProducator)
                             .addComponent(jLabelLoadingAdaugaProducator, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabelSugestiiAdresaProd, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(320, Short.MAX_VALUE))
+                .addContainerGap(325, Short.MAX_VALUE))
         );
 
-        jTabbedPaneHarta.addTab("Adaugă Producator", jPanelAdaugaProducator);
+        jTabbedPaneHarta.addTab("Adaugă Producător", jPanelAdaugaProducator);
 
         jLabelAdaugaDistribuitorNume.setText("Nume:");
 
@@ -302,7 +302,7 @@ public final class Interfata extends javax.swing.JFrame {
             }
         });
 
-        jLabelLoadingAdaugaDistribuitor.setText("Loading...");
+        jLabelLoadingAdaugaDistribuitor.setText("Se încarcă..");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -344,7 +344,7 @@ public final class Interfata extends javax.swing.JFrame {
                             .addComponent(jButtonAdaugaDistribuitor)
                             .addComponent(jLabelLoadingAdaugaDistribuitor)))
                     .addComponent(jLabelSugestiiAdresaDist, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(324, Short.MAX_VALUE))
+                .addContainerGap(329, Short.MAX_VALUE))
         );
 
         jTabbedPaneHarta.addTab("Adaugă Distribuitor", jPanel1);
@@ -366,7 +366,7 @@ public final class Interfata extends javax.swing.JFrame {
             }
         });
 
-        jLabelLoadingAdaugaClient.setText("Loading...");
+        jLabelLoadingAdaugaClient.setText("Se încarcă..");
 
         javax.swing.GroupLayout jPanelAdaugaClientLayout = new javax.swing.GroupLayout(jPanelAdaugaClient);
         jPanelAdaugaClient.setLayout(jPanelAdaugaClientLayout);
@@ -411,7 +411,7 @@ public final class Interfata extends javax.swing.JFrame {
                             .addComponent(jButtonAdaugaClient)
                             .addComponent(jLabelLoadingAdaugaClient, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabelSugestiiAdresaClient, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(303, Short.MAX_VALUE))
+                .addContainerGap(308, Short.MAX_VALUE))
         );
 
         jTabbedPaneHarta.addTab("Adaugă Client", jPanelAdaugaClient);
@@ -431,7 +431,7 @@ public final class Interfata extends javax.swing.JFrame {
 
         jLabelClient.setText("Clienți:");
 
-        jLabelDistantaText.setText("Distanta:");
+        jLabelDistantaText.setText("Distanța:");
 
         jLabelDurataText.setText("Durata:");
 
@@ -551,7 +551,7 @@ public final class Interfata extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jButtonCautaInGoogleMaps)
                                     .addComponent(jButtonStergeTot))
-                                .addGap(0, 9, Short.MAX_VALUE))
+                                .addGap(0, 15, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(15, 15, 15)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -571,8 +571,8 @@ public final class Interfata extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonExportRaport)))
                 .addGap(4, 4, 4)
-                .addComponent(jTabbedPaneHarta, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jTabbedPaneHarta, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
 
         pack();

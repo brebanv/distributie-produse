@@ -20,17 +20,17 @@ public class Limba {
     String jButtonStergeFirme;
 
     public Limba() {
-        this.jLabelProDucator = "Producator:";
-        this.jLabelDistribuitor = "Distribuitor:";
-        this.jLabelClient = "Client:";
-        this.jLabelDistanta = "Distanta";
+        this.jLabelProDucator = "Producători:";
+        this.jLabelDistribuitor = "Distribuitori:";
+        this.jLabelClient = "Clienti:";
+        this.jLabelDistanta = "Distanța";
         this.jLabelDurata = "Durata";
         this.jTabbedPaneHarta = "Harta";
         this.jTabbedPaneAdaugaProducator = "Adauga Producator";
         this.jTabbedPaneAdaugaDistribuitor = "Adauga Distribuitor";
         this.jTabbedPaneAdaugaClient = "Adauga Client";
         this.jLabelLoading = "Se încarcă...";
-        this.jButtonAdauga = "Adauga";
+        this.jButtonAdauga = "Adaugă";
         this.jButtonTraseu = "Traseu";
         this.jButtonTraseuOptim = "Traseu Optim";
         this.jLabelAdaugaNume = "Nume";

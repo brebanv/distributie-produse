@@ -115,7 +115,7 @@
                                   <Component id="jButtonCautaInGoogleMaps" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jButtonStergeTot" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="9" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="15" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
@@ -145,8 +145,8 @@
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-              <Component id="jTabbedPaneHarta" pref="586" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jTabbedPaneHarta" pref="591" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -195,7 +195,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
                       <Component id="jLabelLoading" min="-2" pref="300" max="-2" attributes="0"/>
-                      <EmptySpace pref="135" max="32767" attributes="0"/>
+                      <EmptySpace pref="140" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -216,8 +216,8 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Adaug&#x103; Producator">
-                <Property name="tabTitle" type="java.lang.String" value="Adaug&#x103; Producator"/>
+              <JTabbedPaneConstraints tabName="Adaug&#x103; Produc&#x103;tor">
+                <Property name="tabTitle" type="java.lang.String" value="Adaug&#x103; Produc&#x103;tor"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -276,7 +276,7 @@
                           </Group>
                           <Component id="jLabelSugestiiAdresaProd" min="-2" pref="85" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="320" max="32767" attributes="0"/>
+                      <EmptySpace pref="325" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -309,7 +309,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelLoadingAdaugaProducator">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Loading ..."/>
+                <Property name="text" type="java.lang.String" value="Se &#xee;ncarc&#x103;.."/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelSugestiiAdresaProd">
@@ -374,7 +374,7 @@
                           </Group>
                           <Component id="jLabelSugestiiAdresaDist" min="-2" pref="84" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="324" max="32767" attributes="0"/>
+                      <EmptySpace pref="329" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -407,7 +407,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelLoadingAdaugaDistribuitor">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Loading..."/>
+                <Property name="text" type="java.lang.String" value="Se &#xee;ncarc&#x103;.."/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelSugestiiAdresaDist">
@@ -477,7 +477,7 @@
                           </Group>
                           <Component id="jLabelSugestiiAdresaClient" min="-2" pref="94" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="303" max="32767" attributes="0"/>
+                      <EmptySpace pref="308" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -510,7 +510,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelLoadingAdaugaClient">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Loading..."/>
+                <Property name="text" type="java.lang.String" value="Se &#xee;ncarc&#x103;.."/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelSugestiiAdresaClient">
@@ -574,7 +574,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelDistantaText">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Distanta:"/>
+        <Property name="text" type="java.lang.String" value="Distan&#x21b;a:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelDurataText">
